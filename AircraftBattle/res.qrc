@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/bg.png</file>
+        <file>res/play.png</file>
+        <file>res/exit.png</file>
+    </qresource>
+</RCC>
