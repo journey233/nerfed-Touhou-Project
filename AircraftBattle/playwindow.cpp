@@ -88,15 +88,19 @@ void PlayWindow::keyPressEvent(QKeyEvent *event){
     switch(event->key()){
     case(Qt::Key_W):
         //TODO
+        myplane->move(0,-1);
         break;
     case(Qt::Key_A):
         //TODO
+        myplane->move(-1,0);
         break;
     case(Qt::Key_S):
         //TODO
+        myplane->move(0,1);
         break;
     case(Qt::Key_D):
         //TODO
+        myplane->move(1,0);
         break;
     }
 }

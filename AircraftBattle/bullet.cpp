@@ -42,8 +42,8 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
 
 void Bullet::move(const int screen_x,const int screen_y){
     if(state){//存活移动
-        int nowX;
-        int nowY;
+        double nowX;
+        double nowY;
         if(type==SLFBULLET||SLFBULLETLEVELUP){
             nowX = this->pos().x();
             nowY = this->pos().y()-bullet_speed;

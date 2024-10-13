@@ -10,3 +10,11 @@ Myplane::Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c,
     hitPoint->setShapeMode(QGraphicsPixmapItem::MaskShape);
 };
 
+void Myplane::move(double dx, double dy){
+    double x0 = this->x();
+    double y0 = this->y();
+    double nowX = x0 + this->speed() * dx;
+    double nowY = y0 + this->speed() * dy;
+    this->setPos(nowX, nowY);
+    hitPoint->setPos(nowX+30,nowY+25);
+};

@@ -28,7 +28,7 @@ public:
         this->setShapeMode(QGraphicsPixmapItem::MaskShape);
     }
 
-    void move(double dx, double dy) // 机体向（dx, dy）方向移动一次
+    virtual void move(double dx, double dy) // 机体向（dx, dy）方向移动一次
     {
         double x0 = this->x();
         double y0 = this->y();
