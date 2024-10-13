@@ -1,9 +1,17 @@
 #include "playwindow.h"
 #include <QApplication>
 #include <QScreen>
+#include <QGraphicsView>
+#include <mypushbutton.h>
 PlayWindow::PlayWindow(QMainWindow *parent) : QMainWindow(parent) {
+    initScene();
+
+}
+
+void PlayWindow::initScene(){
+
     //游戏界面大小
-    this->setFixedSize(740,860);
+    this->setFixedSize(scene_width,scene_height);
 
     //移动到屏幕中央
     QRect screenGeometry = QApplication::primaryScreen()->geometry();
@@ -13,4 +21,69 @@ PlayWindow::PlayWindow(QMainWindow *parent) : QMainWindow(parent) {
     int y = (screenHeight - this->height()) / 2-40;
     this->move(x, y);
 
+    //设置窗口标题
+    this->setWindowTitle("AircraftBattle");
+
+    //创建场景
+    scene = new QGraphicsScene(this);
+
+    QGraphicsView *view = new QGraphicsView(scene, this);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setFixedSize(scene_width,scene_height);
+
+    setCentralWidget(view);
+
+    // 加载背景图片
+    backgroundPixmap = QPixmap(":/res/background.jpg");
+    backgroundheight = backgroundPixmap.height();
+    offset = -backgroundheight/2;
+    // 创建背景项
+    backgroundItem = new QGraphicsPixmapItem(backgroundPixmap);
+    // 添加背景项到场景
+    scene->setSceneRect(0, 0, scene_width, backgroundheight);
+    scene->addItem(backgroundItem);
+    backgroundItem->setPos(0, 0);
+
+    // 返回按钮
+    backButton();
+
+    timer = new QTimer(this);
+    timer->start(1000/Fps);
+    qDebug()<<backgroundPixmap.height();
+    connect(timer, &QTimer::timeout, this, &PlayWindow::updateBackground);
+}
+
+
+void PlayWindow::backButton()
+{
+    //返回按钮
+    MyPushButton * backBtn = new MyPushButton(":/res/back.png");
+    backBtn->setParent(this);
+    backBtn->move(this->width() - backBtn->width() - 20, 20);
+    //点击返回
+    connect(backBtn,&MyPushButton::clicked,this,[=](){
+
+        //特效
+        backBtn->zoom_down();
+        backBtn->zoom_up();
+
+        //返回
+        QTimer::singleShot(100,this,[=](){
+            emit this->Back();
+        });
+    });
+
+}
+
+
+void PlayWindow::updateBackground(){
+    // 更新背景项的位置
+    backgroundItem->setPos(0, offset);
+
+    // 更新偏移量，循环平铺
+    offset += 5; // 每次移动5个像素
+    if (offset >= 0) {
+        offset = -backgroundheight/2; // 重置偏移量以实现循环
+    }
 }
