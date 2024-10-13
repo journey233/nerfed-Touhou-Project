@@ -7,6 +7,7 @@
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QWheelEvent>
+#include "myplane.h"
 
 class PlayWindow :public QMainWindow
 {
@@ -31,6 +32,8 @@ public:
     int backgroundheight;
     QPixmap backgroundPixmap;
     int offset = 0;
+
+    Myplane *myplane = nullptr;
 
 signals:
     void Back();

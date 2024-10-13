@@ -5,5 +5,8 @@
         <file>res/exit.png</file>
         <file>res/background.jpg</file>
         <file>res/back.png</file>
+        <file>res/myplane0.png</file>
+        <file>res/selfbullet.png</file>
+        <file>res/hitpoint.png</file>
     </qresource>
 </RCC>

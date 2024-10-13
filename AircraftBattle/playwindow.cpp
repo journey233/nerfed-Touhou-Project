@@ -40,6 +40,7 @@ void PlayWindow::initScene(){
     offset = -backgroundheight/2;
     // 创建背景项
     backgroundItem = new QGraphicsPixmapItem(backgroundPixmap);
+    backgroundItem->setZValue(0);
     // 添加背景项到场景
     scene->setSceneRect(0, 0, scene_width, backgroundheight);
     scene->addItem(backgroundItem);
@@ -53,6 +54,11 @@ void PlayWindow::initScene(){
     timer->start(1000/Fps);
     qDebug()<<backgroundPixmap.height();
     connect(timer, &QTimer::timeout, this, &PlayWindow::updateBackground);
+
+    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
+    myplane->setZValue(1);
+    scene->addItem(myplane);
+    scene->addItem(myplane->hitPoint);
 }
 
 

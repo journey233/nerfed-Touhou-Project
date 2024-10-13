@@ -12,6 +12,7 @@ SOURCES += \
     bullet.cpp \
     main.cpp \
     mainwindow.cpp \
+    myplane.cpp \
     mypushbutton.cpp \
     playwindow.cpp
 
@@ -19,6 +20,7 @@ HEADERS += \
     base_plane_class.h \
     bullet.h \
     mainwindow.h \
+    myplane.h \
     mypushbutton.h \
     playwindow.h
 
