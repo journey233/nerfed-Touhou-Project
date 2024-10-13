@@ -22,7 +22,10 @@ void PlayWindow::initScene(){
     this->move(x, y);
 
     //设置窗口标题
-    this->setWindowTitle("AircraftBattle");
+    this->setWindowTitle("打不过🐎？");
+
+    //设置图标
+    this->setWindowIcon(QIcon(":/res/icon.jpg"));
 
     //创建场景
     scene = new QGraphicsScene(this);

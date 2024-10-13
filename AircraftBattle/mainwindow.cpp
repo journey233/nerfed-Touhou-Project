@@ -13,8 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
     //应用图片
     //this->setWindowIcon(QPixmap(":/res/shapez.png"));
     //标题
-    this->setWindowTitle("Aircraft Battle");
-
+    this->setWindowTitle("少女折寿中……");
+    //图标
+    this->setWindowIcon(QIcon(":/res/icon2.png"));
     this->setFixedSize(this->width(),this->height());
 
     //play按钮
