@@ -3,9 +3,9 @@
 #include <QScreen>
 #include <QGraphicsView>
 #include <mypushbutton.h>
-PlayWindow::PlayWindow(QMainWindow *parent) : QMainWindow(parent) {
+PlayWindow::PlayWindow(QMainWindow *parent)
+    : QMainWindow(parent){
     initScene();
-
 }
 
 void PlayWindow::initScene(){
@@ -30,7 +30,8 @@ void PlayWindow::initScene(){
     QGraphicsView *view = new QGraphicsView(scene, this);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setFixedSize(scene_width,scene_height);
+    // view->setFixedSize(scene_width,scene_height);
+    view->setSceneRect(rect());
 
     setCentralWidget(view);
 
@@ -52,8 +53,19 @@ void PlayWindow::initScene(){
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
-    qDebug()<<backgroundPixmap.height();
-    connect(timer, &QTimer::timeout, this, &PlayWindow::updateBackground);
+    connect(timer, &QTimer::timeout, this, [=](){
+        updateBackground();
+        for(int i = 0; i < 4; ++i)
+        {
+            int dx = 0, dy = 0;
+            dx += (moving[i] ? di[i][0] : 0);
+            dy += (moving[i] ? di[i][1] : 0);
+            if(dx || dy)
+            {
+                myplane->move(dx, dy);
+            }
+        }
+    });
 
     myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
     myplane->setZValue(1);
@@ -67,7 +79,7 @@ void PlayWindow::backButton()
     //返回按钮
     MyPushButton * backBtn = new MyPushButton(":/res/back.png",QPoint(60,60));
     backBtn->setParent(this);
-    backBtn->move(this->width() - backBtn->width() - 5, 20);
+    backBtn->move(this->width() - backBtn->width() - 5, 780);
     //点击返回
     connect(backBtn,&MyPushButton::clicked,this,[=](){
 
@@ -82,26 +94,49 @@ void PlayWindow::backButton()
     });
 }
 
+// void PlayWindow::keyPressEvent(QKeyEvent *event){
+//     switch(event->key()){
+//     case(Qt::Key_W):
+//         //TODO
+//         myplane->move(0,-1);
+//         break;
+//     case(Qt::Key_A):
+//         //TODO
+//         myplane->move(-1,0);
+//         break;
+//     case(Qt::Key_S):
+//         //TODO
+//         myplane->move(0,1);
+//         break;
+//     case(Qt::Key_D):
+//         //TODO
+//         myplane->move(1,0);
+//         break;
+//     }
+// }
+void PlayWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_W) {
+        moving[1] = true;
+    } else if (event->key() == Qt::Key_S) {
+        moving[3] = true;
+    } else if (event->key() == Qt::Key_A) {
+        moving[0] = true;
+    } else if (event->key() == Qt::Key_D) {
+        moving[2] = true;
+    }
+}
 
-
-void PlayWindow::keyPressEvent(QKeyEvent *event){
-    switch(event->key()){
-    case(Qt::Key_W):
-        //TODO
-        myplane->move(0,-1);
-        break;
-    case(Qt::Key_A):
-        //TODO
-        myplane->move(-1,0);
-        break;
-    case(Qt::Key_S):
-        //TODO
-        myplane->move(0,1);
-        break;
-    case(Qt::Key_D):
-        //TODO
-        myplane->move(1,0);
-        break;
+void PlayWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_W) {
+        moving[1] = false;
+    } else if (event->key() == Qt::Key_S) {
+        moving[3] = false;
+    } else if (event->key() == Qt::Key_A) {
+        moving[0] = false;
+    } else if (event->key() == Qt::Key_D) {
+        moving[2] = false;
     }
 }
 

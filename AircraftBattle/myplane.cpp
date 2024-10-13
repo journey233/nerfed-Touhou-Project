@@ -15,6 +15,10 @@ void Myplane::move(double dx, double dy){
     double y0 = this->y();
     double nowX = x0 + this->speed() * dx;
     double nowY = y0 + this->speed() * dy;
+    if(nowX>=630)nowX=630;
+    if(nowX<=-30)nowX=-30;
+    if(nowY>=815)nowY=815;
+    if(nowY<=-25)nowY=-25;
     this->setPos(nowX, nowY);
     hitPoint->setPos(nowX+30,nowY+25);
 };

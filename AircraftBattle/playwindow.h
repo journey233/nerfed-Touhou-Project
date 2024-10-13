@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <QWheelEvent>
 #include "myplane.h"
+#include <cmath>
 
 class PlayWindow :public QMainWindow
 {
@@ -20,12 +21,12 @@ public:
     void backButton();
 
     void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
 
     QTimer *timer;
     int scene_width = 740;//窗口宽度
     int scene_height = 860;//窗口高度
-    int Fps = 60 ;//帧率
 
     QGraphicsScene *scene;
     QGraphicsPixmapItem *backgroundItem;
@@ -34,6 +35,9 @@ public:
     int offset = 0;
 
     Myplane *myplane = nullptr;
+
+    bool moving[4] = {0}; // 0左1上2右3下
+    int di[4][2] = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
 
 signals:
     void Back();

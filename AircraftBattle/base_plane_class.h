@@ -4,9 +4,11 @@
 #include <QGraphicsPixmapItem>
 #include <QList>
 #include "bullet.h"
+#include <QPropertyAnimation>
 
 #define SELF true
 #define ENEMY false
+#define Fps 60 // 帧率
 
 class base_plane_class : public QGraphicsPixmapItem
 {
@@ -17,13 +19,14 @@ private:
     int _speed; // 移动速度
     // 自机可能还需要添加是否处于无敌状态的变量
     bool _camp; // 机体的阵营 自机->SELF，敌机->ENEMY
-    bool _state;//是否活着
+    bool _state; // 是否活着
+    QPixmap pix; // 贴图
 public:
     base_plane_class(const QPixmap &p, int l, int s, bool c, QPointF pos, QSize scale, QGraphicsPixmapItem *parent = nullptr)
         :_life(l), _speed(s), _camp(c), _state(true)
     {
-        QPixmap np = p.scaled(scale);
-        this->setPixmap(np);
+        pix = p.scaled(scale);
+        this->setPixmap(pix);
         this->setPos(pos);
         this->setShapeMode(QGraphicsPixmapItem::MaskShape);
     }
@@ -32,7 +35,15 @@ public:
     {
         double x0 = this->x();
         double y0 = this->y();
-        this->setPos(x0 + _speed * dx, y0 + _speed * dy);
+        double nowX = x0 + this->speed() * dx;
+        double nowY = y0 + this->speed() * dy;
+        this->setPos(nowX, nowY);
+        // QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+        // animation->setDuration(1000/Fps);
+        // animation->setStartValue(QRect(x0, y0, pix.width(), pix.height()));
+        // animation->setEndValue(QRect(x0 + _speed * dx, y0 + _speed * dy, pix.width(), pix.height()));
+        // animation->setEasingCurve(QEasingCurve::Linear);
+        // animation->start();
     }
     void attack(int type, int dx, int dy) // 机体向（dx, dy）方向发射一颗子弹
     {
