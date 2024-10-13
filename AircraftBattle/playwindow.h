@@ -5,7 +5,8 @@
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-
+#include <QKeyEvent>
+#include <QWheelEvent>
 
 class PlayWindow :public QMainWindow
 {
@@ -16,6 +17,9 @@ public:
     void initScene();
     void updateBackground();
     void backButton();
+
+    void keyPressEvent(QKeyEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
 
     QTimer *timer;
     int scene_width = 740;//窗口宽度

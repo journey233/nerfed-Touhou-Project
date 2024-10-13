@@ -48,6 +48,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
+
     timer = new QTimer(this);
     timer->start(1000/Fps);
     qDebug()<<backgroundPixmap.height();
@@ -58,9 +59,9 @@ void PlayWindow::initScene(){
 void PlayWindow::backButton()
 {
     //返回按钮
-    MyPushButton * backBtn = new MyPushButton(":/res/back.png");
+    MyPushButton * backBtn = new MyPushButton(":/res/back.png",QPoint(60,60));
     backBtn->setParent(this);
-    backBtn->move(this->width() - backBtn->width() - 20, 20);
+    backBtn->move(this->width() - backBtn->width() - 5, 20);
     //点击返回
     connect(backBtn,&MyPushButton::clicked,this,[=](){
 
@@ -73,9 +74,30 @@ void PlayWindow::backButton()
             emit this->Back();
         });
     });
-
 }
 
+
+
+void PlayWindow::keyPressEvent(QKeyEvent *event){
+    switch(event->key()){
+    case(Qt::Key_W):
+        //TODO
+        break;
+    case(Qt::Key_A):
+        //TODO
+        break;
+    case(Qt::Key_S):
+        //TODO
+        break;
+    case(Qt::Key_D):
+        //TODO
+        break;
+    }
+}
+
+void PlayWindow::wheelEvent(QWheelEvent *event) {
+    event->ignore(); // 接受事件，但不处理它
+}
 
 void PlayWindow::updateBackground(){
     // 更新背景项的位置
