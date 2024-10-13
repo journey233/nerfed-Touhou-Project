@@ -57,12 +57,13 @@ void PlayWindow::initScene(){
         updateBackground();
         for(int i = 0; i < 4; ++i)
         {
-            int dx = 0, dy = 0;
+            double dx = 0, dy = 0;
             dx += (moving[i] ? di[i][0] : 0);
             dy += (moving[i] ? di[i][1] : 0);
             if(dx || dy)
             {
-                myplane->move(dx, dy);
+                double len = sqrt(dx * dx + dy * dy);
+                myplane->move(dx / len, dy / len);
             }
         }
     });
