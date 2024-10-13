@@ -15,6 +15,7 @@ SOURCES += \
     playwindow.cpp
 
 HEADERS += \
+    base_plane_class.h \
     mainwindow.h \
     mypushbutton.h \
     playwindow.h
