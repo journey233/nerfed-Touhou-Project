@@ -35,11 +35,11 @@ MainWindow::MainWindow(QWidget *parent)
     playWindow = new PlayWindow(this);
 
     //监听返回信号
-    // connect(playWindow,&PlayWindow::Back,this,[=](){
-    //     //重新显示开始界面
-    //     playWindow->hide();
-    //     this->show();
-    // });
+    connect(playWindow,&PlayWindow::Back,this,[=](){
+        //重新显示开始界面
+        playWindow->hide();
+        this->show();
+    });
 
     connect(startBtn,&MyPushButton::clicked,this,[=](){
 

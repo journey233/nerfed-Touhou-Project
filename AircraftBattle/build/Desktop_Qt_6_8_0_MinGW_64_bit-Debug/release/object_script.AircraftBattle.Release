@@ -1,0 +1,10 @@
+release/bullet.o
+release/main.o
+release/mainwindow.o
+release/mypushbutton.o
+release/playwindow.o
+release/qrc_res.o
+release/moc_base_plane_class.o
+release/moc_bullet.o
+release/moc_mainwindow.o
+release/moc_playwindow.o

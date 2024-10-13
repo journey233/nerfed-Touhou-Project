@@ -10,7 +10,6 @@
 
 class base_plane_class : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 private:
     int _life; // 血量
     int _speed; // 移动速度

@@ -19,7 +19,6 @@
 
 class Bullet : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 public:
     explicit Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem *parent = nullptr);
     int type;//子弹类型，据此写子弹pixmap及其大小，switch type：//TODO
