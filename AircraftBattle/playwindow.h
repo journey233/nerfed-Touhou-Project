@@ -8,7 +8,7 @@
 #include <QKeyEvent>
 #include <QWheelEvent>
 #include "myplane.h"
-#include <cmath>
+#include "enemy.h"
 
 class PlayWindow :public QMainWindow
 {
