@@ -130,7 +130,12 @@ debug/qrc_res.cpp: ../../res.qrc \
 		../../res/exit.png \
 		../../res/back.png \
 		../../res/hitpoint.png \
+		../../res/enemy_bullet_3.png \
 		../../res/icon.jpg \
+		../../res/enemy_bullet_2.png \
+		../../res/boss_bullet0.png \
+		../../res/bar.png \
+		../../res/enemy_bullet0.png \
 		../../res/selfbullet.png \
 		../../res/icon2.png \
 		../../res/myplane0.png \
@@ -885,7 +890,10 @@ debug/enemy.o: ../../enemy.cpp ../../enemy.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCore/qpropertyanimation.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCore/qvariantanimation.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCore/qabstractanimation.h \
-		D:/Qt/6.8.0/mingw_64/include/QtCore/qeasingcurve.h
+		D:/Qt/6.8.0/mingw_64/include/QtCore/qeasingcurve.h \
+		D:/Qt/6.8.0/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.8.0/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.8.0/mingw_64/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\enemy.o ..\..\enemy.cpp
 
 debug/main.o: ../../main.cpp ../../mainwindow.h \

@@ -10,5 +10,5 @@ ShootEnemy::ShootEnemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale,
     :Enemy(p, l, s, pos, scale, x, y, parent)
 {
     timer = new QTimer();
-    timer->start(100);
+    timer->start(750);
 }

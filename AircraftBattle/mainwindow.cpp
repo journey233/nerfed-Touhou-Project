@@ -33,10 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
     quitBtn->move((this->width()/2-quitBtn->width())/3 + this->width()/2 ,350);
 
     connect(startBtn,&MyPushButton::clicked,this,[=](){
-
-        //游戏界面
-        playWindow = new PlayWindow(this);
-
         //做特效
         startBtn->zoom_down();
         startBtn->zoom_up();
@@ -48,17 +44,17 @@ MainWindow::MainWindow(QWidget *parent)
         QTimer::singleShot(100,this,[=](){  
             //自身隐藏
             this->hide();
+            //游戏界面
+            playWindow = new PlayWindow(this);
+            //监听返回信号
+            connect(playWindow,&PlayWindow::Back,this,[=](){
+                //重新显示开始界面
+                playWindow->close();
+                this->show();
+            });
             //进入游戏界面
             playWindow->show();
         });
-
-        //监听返回信号
-        connect(playWindow,&PlayWindow::Back,this,[=](){
-            //重新显示开始界面
-            playWindow->close();
-            this->show();
-        });
-
     });
 
     connect(quitBtn,&MyPushButton::clicked,this,[=](){
