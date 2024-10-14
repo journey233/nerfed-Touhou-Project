@@ -11,5 +11,9 @@
         <file>res/icon.jpg</file>
         <file>res/icon2.png</file>
         <file>res/bar.png</file>
+        <file>res/boss_bullet0.png</file>
+        <file>res/enemy_bullet_2.png</file>
+        <file>res/enemy_bullet_3.png</file>
+        <file>res/enemy_bullet0.png</file>
     </qresource>
 </RCC>

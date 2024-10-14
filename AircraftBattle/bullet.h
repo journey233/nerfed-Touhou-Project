@@ -9,7 +9,7 @@
 #define EMYBULLET_FIRST 2
 #define EMYBULLET_SECOND 3
 #define EMYBULLET_THIRD 4
-#define EMYBULLET_FORTH 5
+#define BOSSBULLET_FIRST 5
 //TODO
 
 
@@ -27,6 +27,7 @@ public:
     double dir[2];
     bool camp;//子弹的阵营，敌0自1
     int size[2];
+    int a = 0;//子弹加速度
     void move(const int screen_x,const int screen_y);
 
 signals:
