@@ -22,18 +22,42 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         }
     case EMYBULLET_FIRST:{
             camp = ENEMY;
+            QPixmap p(":/res/enemy_bullet_0.png");
+            p = p.scaled(QSize(20,20));
+            size[0]=20;
+            size[1]=20;
+            this->setPixmap(p);
             break;
         }
     case EMYBULLET_SECOND:{
             camp = ENEMY;
+            QPixmap p(":/res/enemy_bullet_2.png");
+            p = p.scaled(QSize(20,20));
+            size[0]=20;
+            size[1]=20;
+            this->setPixmap(p);
             break;
         }
-    case EMYBULLET_THIRD:{
+    case EMYBULLET_THIRD:{//精英子弹，加速
             camp = ENEMY;
+            QPixmap p(":/res/enemy_bullet_3.png");
+            p = p.scaled(QSize(10,60));
+            size[0] = 10;
+            size[1] = 60;
+            this->setPixmap(p);
+            bullet_speed = 5;
+            a = 2;//加速度
             break;
         }
-    case EMYBULLET_FORTH:{
+    case BOSSBULLET_FIRST:{
             camp = ENEMY;
+            QPixmap p(":/res/boss_bullet0.png");
+            p = p.scaled(QSize(20,80));
+            size[0] = 20;
+            size[1] = 80;
+            this->setPixmap(p);
+            bullet_speed = 10;
+            a = 2;
             break;
         }
     case SLFBULLETLEVELUP:{
@@ -61,6 +85,9 @@ void Bullet::move(const int screen_x,const int screen_y){
             nowY = this->pos().y()-bullet_speed;
             this->setPos(nowX,nowY);
         } else {
+            if(state==EMYBULLET_THIRD||state==BOSSBULLET_FIRST){
+                bullet_speed+=a;
+            }
             nowX = this->pos().x() + dir[0]*bullet_speed;
             nowY = this->pos().y() + dir[1]*bullet_speed;
             this->setPos(nowX,nowY);
