@@ -15,5 +15,11 @@
         <file>res/enemy_bullet_2.png</file>
         <file>res/enemy_bullet_3.png</file>
         <file>res/enemy_bullet0.png</file>
+        <file>res/boss_1.png</file>
+        <file>res/boss_2.png</file>
+        <file>res/enemy_1.png</file>
+        <file>res/enemy_2.png</file>
+        <file>res/shootenemy_1.png</file>
+        <file>res/shootenemy_2.png</file>
     </qresource>
 </RCC>

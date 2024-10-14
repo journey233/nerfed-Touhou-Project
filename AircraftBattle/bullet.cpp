@@ -81,7 +81,7 @@ void Bullet::move(const int screen_x,const int screen_y){
     if(state){//存活移动
         double nowX;
         double nowY;
-        if(type==SLFBULLET||SLFBULLETLEVELUP){
+        if(type==SLFBULLET||type==SLFBULLETLEVELUP){
             nowX = this->pos().x();
             nowY = this->pos().y()-bullet_speed;
             this->setPos(nowX,nowY);

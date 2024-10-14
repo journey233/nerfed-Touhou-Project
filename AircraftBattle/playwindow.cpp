@@ -62,7 +62,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,600),QSize(80,80),0,1);
+    createEnemy(shootenemy1,QPixmap(":/res/boss_2.png"),1,1,QPointF(300,400),QSize(180,180),0,1);
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
