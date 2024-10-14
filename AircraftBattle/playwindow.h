@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include<QTime>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
@@ -58,6 +59,9 @@ public:
 
     bool moving[4] = {0}; // 0左1上2右3下
     int di[4][2] = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
+    int enemy_phase=1;
+    int enemy_clock=0;
+    QTimer *enemy_generate;
 
 signals:
     void Back();

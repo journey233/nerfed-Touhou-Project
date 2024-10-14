@@ -1,8 +1,10 @@
+#include<Qdebug>
 #include "playwindow.h"
 #include <QApplication>
 #include <QScreen>
 #include <QGraphicsView>
 #include <mypushbutton.h>
+#include <stdlib.h>
 PlayWindow::PlayWindow(QMainWindow *parent)
     : QMainWindow(parent){
     initScene();
@@ -116,6 +118,16 @@ void PlayWindow::initScene(){
         }
         selfattacktimer = (selfattacktimer+1)%5;
 
+        enemy_clock++;
+        if(enemy_clock%60000==0){
+            qDebug()<<"enemy level up!";
+            enemy_phase++;
+            enemy_clock=0;
+            if(enemy_phase>=3){
+                enemy_phase=3;
+                //产生一个boss
+            }
+        }
     });
 
 
@@ -124,6 +136,29 @@ void PlayWindow::initScene(){
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
 
+    srand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    enemy_generate=new QTimer(this);
+    enemy_generate->start(10000);
+    connect(enemy_generate,&QTimer::timeout,this,[=](){
+        qDebug()<<"enemy generate!";
+        int n=rand()%3;
+        switch(enemy_phase){
+        case 1:{
+            qDebug()<<"enemy_1 of "<<n;
+            break;
+        }//第一阶段的产怪
+        case 2:{
+            n+=2;
+            qDebug()<<"enemy_2 of "<<n;
+            break;
+        }//第二阶段的产怪
+        case 3:{
+            n+=5;
+            qDebug()<<"enemy_3 of "<<n<<"and Boss";
+            break;
+        }//第三及之后的产怪
+        }
+    });
 }
 
 
