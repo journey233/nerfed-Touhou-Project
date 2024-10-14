@@ -126,6 +126,7 @@ void PlayWindow::initScene(){
             if(enemy_phase>=3){
                 enemy_phase=3;
                 //产生一个boss
+                a_wave_of_enemies(8);
             }
         }
     });
@@ -158,6 +159,7 @@ void PlayWindow::initScene(){
             break;
         }//第三及之后的产怪
         }
+        a_wave_of_enemies(n);
     });
 }
 
@@ -243,5 +245,89 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         shootenemies.append(new_enemy);
         scene->addItem(new_enemy);
     }
+}
 
+void PlayWindow::a_wave_of_enemies(int n){
+    switch(n){
+    case 0:{
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,90),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,180),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,90),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,0),QSize(80,80),0,1);
+        break;
+    };
+    case 1:{
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,90),QSize(80,80),0,1);
+        break;
+    };
+    case 2:{
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,0),QSize(80,80),0,1);
+        break;
+    };
+    case 3:{
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,270),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(210,160),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(350,160),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,90),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,180),QSize(80,80),0,1);
+        break;
+    };
+    case 4:{
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,90),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,90),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,180),QSize(80,80),0,1);
+        break;
+    };
+    case 5:{
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(100,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(100,270),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(200,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,270),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(400,360),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(500,0),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(500,270),QSize(80,80),0,1);
+        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(600,90),QSize(80,80),0,1);
+        break;
+    };
+    case 6:{
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,270),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(180,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(320,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(460,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(600,270),QSize(80,80),0,1);
+        break;
+    };
+    case 7:{
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(100,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(200,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(400,0),QSize(80,80),0,1);
+        break;
+    };
+    case 8:{
+        //产生boss
+        break;
+    };
+    default:break;
+    }
 }

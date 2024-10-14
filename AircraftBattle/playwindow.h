@@ -2,8 +2,7 @@
 #define PLAYWINDOW_H
 
 #include <QMainWindow>
-#include <QTimer>
-#include<QTime>
+#include <QTime>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
@@ -62,6 +61,8 @@ public:
     int enemy_phase=1;
     int enemy_clock=0;
     QTimer *enemy_generate;
+
+    void a_wave_of_enemies(int n);
 
 signals:
     void Back();
