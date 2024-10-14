@@ -4,7 +4,7 @@
 
 #define ENEMY false
 #define SELF true
-#define SLFBULLET true
+#define SLFBULLET 1
 #define SLFBULLETLEVELUP 9
 #define EMYBULLET_FIRST 2
 #define EMYBULLET_SECOND 3
@@ -27,7 +27,7 @@ public:
     double dir[2];
     bool camp;//子弹的阵营，敌0自1
     int size[2];
-    int a = 0;//子弹加速度
+    double a = 0;//子弹加速度
     void move(const int screen_x,const int screen_y);
 
 signals:

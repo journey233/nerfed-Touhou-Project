@@ -23,19 +23,19 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
     case EMYBULLET_FIRST:{
             camp = ENEMY;
             QPixmap p(":/res/enemy_bullet0.png");
-            p = p.scaled(QSize(20,20));
-            size[0]=20;
-            size[1]=20;
+            p = p.scaled(QSize(30,30));
+            size[0]=30;
+            size[1]=30;
+            bullet_speed = 6;
             this->setPixmap(p);
-
             break;
         }
     case EMYBULLET_SECOND:{
             camp = ENEMY;
             QPixmap p(":/res/enemy_bullet_2.png");
-            p = p.scaled(QSize(20,20));
-            size[0]=20;
-            size[1]=20;
+            p = p.scaled(QSize(30,30));
+            size[0]=30;
+            size[1]=30;
             this->setPixmap(p);
             break;
         }
@@ -86,7 +86,7 @@ void Bullet::move(const int screen_x,const int screen_y){
             nowY = this->pos().y()-bullet_speed;
             this->setPos(nowX,nowY);
         } else {
-            if(state==EMYBULLET_THIRD||state==BOSSBULLET_FIRST){
+            if(type==EMYBULLET_THIRD||type==BOSSBULLET_FIRST){
                 bullet_speed+=a;
             }
             nowX = this->pos().x() + dir[0]*bullet_speed;
