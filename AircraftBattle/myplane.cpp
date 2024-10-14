@@ -23,7 +23,7 @@ void Myplane::move(double dx, double dy){
     hitPoint->setPos(nowX+30,nowY+25);
 };
 
-int Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
+int Myplane::attack(int type, double dxx, double dyy) // 机体向（dx, dy）方向发射一颗子弹
 {
     double dx = 0;
     double dy = -1;
@@ -53,5 +53,19 @@ int Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
             op++;
         }
         return op;
+    }
+}
+
+void Myplane::be_attacked()
+{
+    if(!nondead)
+    {
+        if(this->_life == 0){
+            // 结束游戏
+        }
+        else{
+            --(this->_life);
+            nondead = true;
+        }
     }
 }
