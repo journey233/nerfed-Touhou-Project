@@ -15,15 +15,15 @@ void Myplane::move(double dx, double dy){
     double y0 = this->y();
     double nowX = x0 + this->speed() * dx;
     double nowY = y0 + this->speed() * dy;
-    if(nowX>=630)nowX=630;
-    if(nowX<=-30)nowX=-30;
-    if(nowY>=815)nowY=815;
-    if(nowY<=-25)nowY=-25;
+    if(nowX>=630) nowX=630;
+    if(nowX<=-30) nowX=-30;
+    if(nowY>=815) nowY=815;
+    if(nowY<=-25) nowY=-25;
     this->setPos(nowX, nowY);
     hitPoint->setPos(nowX+30,nowY+25);
 };
 
-int Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
+int Myplane::attack(int type, double dxx, double dyy) // 机体向（dx, dy）方向发射一颗子弹
 {
     double dx = 0;
     double dy = -1;
@@ -34,24 +34,38 @@ int Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
         return 1;
     } else if(type==SLFBULLETLEVELUP){
         int op = 0;
-        Bullet *a = new Bullet(type, dx, dy);
         Bullet *b = new Bullet(type, dx, dy);
-        Bullet *c = new Bullet(type, dx, dy);
         double thisX = this->x();
         double thisY = this->y();
         if(thisX-10>-30){
-        a->setPos(thisX-10,thisY-30);
-        bullet_list.append(a);
-        op++;
+            Bullet *a = new Bullet(type, dx, dy);
+            a->setPos(thisX-10,thisY-30);
+            bullet_list.append(a);
+            op++;
         }
         b->setPos(thisX+25,thisY-40);
         bullet_list.append(b);
         op++;
         if(thisX+60<680){
-        c->setPos(thisX+60,thisY-30);
-        bullet_list.append(c);
-        op++;
+            Bullet *c = new Bullet(type, dx, dy);
+            c->setPos(thisX+60,thisY-30);
+            bullet_list.append(c);
+            op++;
         }
         return op;
+    }
+}
+
+void Myplane::be_attacked()
+{
+    if(!nondead)
+    {
+        if(this->_life == 0){
+            // 结束游戏
+        }
+        else{
+            --(this->_life);
+            nondead = true;
+        }
     }
 }

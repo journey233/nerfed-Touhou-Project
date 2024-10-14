@@ -1,3 +1,26 @@
+/**
+ *                    _ooOoo_
+ *                   o8888888o
+ *                   88" . "88
+ *                   (| -_- |)
+ *                    O\ = /O
+ *                ____/`---'\____
+ *              .   ' \\| |// `.
+ *               / \\||| : |||// \
+ *             / _||||| -:- |||||- \
+ *               | | \\\ - /// | |
+ *             | \_| ''\---/'' | |
+ *              \ .-\__ `-` ___/-. /
+ *           ___`. .' /--.--\ `. . __
+ *        ."" '< `.___\_<|>_/___.' >'"".
+ *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
+ *         \ \ `-. \_ __\ /__ _/ .-` / /
+ * ======`-.____`-.___\_____/___.-`____.-'======
+ *                    `=---='
+ *
+ * .............................................
+ *          佛祖保佑             永无BUG
+ */
 #ifndef BASE_PLANE_CLASS_H
 #define BASE_PLANE_CLASS_H
 
@@ -16,7 +39,7 @@ class base_plane_class : public QGraphicsPixmapItem
 {
 public:
     QList<Bullet*> bullet_list; // 每个机体发射的子弹的链表，需要从playwindow获取
-private:
+protected:
     int _life; // 血量
     int _speed; // 移动速度
     // 自机可能还需要添加是否处于无敌状态的变量
@@ -63,9 +86,9 @@ public:
             }
         }
     }
-    void be_attacked() // 机体受击
+    virtual void be_attacked() // 机体受击
     {
-        if(this->_state==0){
+        if(this->_life == 1){
             _state = false;
             return;
         }

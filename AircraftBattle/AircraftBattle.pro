@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     bullet.cpp \
+    enemy.cpp \
     main.cpp \
     mainwindow.cpp \
     myplane.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     base_plane_class.h \
     bullet.h \
+    enemy.h \
     mainwindow.h \
     myplane.h \
     mypushbutton.h \
