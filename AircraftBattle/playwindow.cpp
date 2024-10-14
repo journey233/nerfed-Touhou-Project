@@ -62,6 +62,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
+    createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
@@ -90,10 +91,14 @@ void PlayWindow::initScene(){
             }
         }
 
-        //自机子弹移动
+        //子弹移动与删除
         myplane->bullet_move();
-        //子弹删除
         myplane->bullet_dead();
+        for(auto m : shootenemies){
+            m->bullet_move();
+            m->bullet_dead();
+        }
+
         //5帧产生一个子弹,不是很丝滑
         if(selfattacktimer%5==0){
             if(upgrade){
@@ -179,4 +184,26 @@ void PlayWindow::updateBackground(){
     if (offset >= 0) {
         offset = -backgroundheight/2; // 重置偏移量以实现循环
     }
+}
+
+void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y){
+    if(type == enemy){
+        Enemy *new_enemy = new Enemy(p,l,s,pos,scale,x,y);
+        enemies.append(new_enemy);
+        scene->addItem(new_enemy);
+    }
+
+    if(type == shootenemy1){
+        ShootEnemy *new_enemy = new ShootEnemy(p,l,s,pos,scale,x,y);
+        connect(new_enemy->timer, &QTimer::timeout,this,[=](){
+            int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
+            int s = new_enemy->bullet_list.size()-1;//
+            for (int i = 0; i < num; ++i) {
+                scene->addItem(new_enemy->bullet_list[s-i]);
+            }
+        });
+        shootenemies.append(new_enemy);
+        scene->addItem(new_enemy);
+    }
+
 }

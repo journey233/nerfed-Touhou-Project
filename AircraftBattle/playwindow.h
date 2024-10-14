@@ -10,6 +10,13 @@
 #include "myplane.h"
 #include "enemy.h"
 
+enum EnemyType{
+    enemy,
+    shootenemy1,
+    shootenemy2,
+    boss
+};
+
 class PlayWindow :public QMainWindow
 {
     Q_OBJECT
@@ -19,6 +26,9 @@ public:
     void initScene();
     void updateBackground();
     void backButton();
+
+    void createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y);
+
 
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
@@ -41,6 +51,9 @@ public:
     Myplane *myplane = nullptr;
     int selfattacktimer = 0;
     bool upgrade = true;//自机升级
+
+    QList<Enemy*> enemies;
+    QList<ShootEnemy*> shootenemies;
 
     bool moving[4] = {0}; // 0左1上2右3下
     int di[4][2] = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };

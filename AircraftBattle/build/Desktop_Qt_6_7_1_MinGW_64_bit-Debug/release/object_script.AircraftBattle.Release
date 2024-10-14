@@ -1,0 +1,10 @@
+release/bullet.o
+release/enemy.o
+release/main.o
+release/mainwindow.o
+release/myplane.o
+release/mypushbutton.o
+release/playwindow.o
+release/qrc_res.o
+release/moc_mainwindow.o
+release/moc_playwindow.o
