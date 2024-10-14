@@ -34,6 +34,10 @@ public:
     QPixmap backgroundPixmap;
     int offset = 0;
 
+    QGraphicsPixmapItem *barItem;
+    QPixmap barPixmap;
+
+
     Myplane *myplane = nullptr;
     int selfattacktimer = 0;
     bool upgrade = true;//自机升级

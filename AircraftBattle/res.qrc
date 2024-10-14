@@ -10,5 +10,6 @@
         <file>res/hitpoint.png</file>
         <file>res/icon.jpg</file>
         <file>res/icon2.png</file>
+        <file>res/bar.png</file>
     </qresource>
 </RCC>

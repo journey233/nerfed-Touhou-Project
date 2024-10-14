@@ -50,6 +50,15 @@ void PlayWindow::initScene(){
     scene->addItem(backgroundItem);
     backgroundItem->setPos(0, 0);
 
+    // 加载边栏图片
+    barPixmap = QPixmap(":/res/bar.png");
+    // 创建边栏项
+    barItem = new QGraphicsPixmapItem(barPixmap.scaled(70,860));
+    barItem->setZValue(3);
+    // 添加边栏项到场景
+    scene->addItem(barItem);
+    barItem->setPos(670, 0);
+
     // 返回按钮
     backButton();
 
