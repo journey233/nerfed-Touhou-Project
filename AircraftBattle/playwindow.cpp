@@ -81,6 +81,14 @@ void PlayWindow::initScene(){
             }
         }
 
+        // 自机处于无敌状态的处理
+        if(myplane->nondead){
+            ++myplane->time_after_death;
+            if(myplane->time_after_death == myplane->nondead_time){
+                myplane->nondead = false;
+                myplane->time_after_death = 0;
+            }
+        }
 
         //自机子弹移动
         myplane->bullet_move();
