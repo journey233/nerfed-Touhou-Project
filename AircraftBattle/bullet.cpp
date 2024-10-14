@@ -4,15 +4,18 @@
 
 Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem *parent):QGraphicsPixmapItem{parent}{
     type = ty;
-    bullet_speed = 10;
+    bullet_speed = 15;
     state = 1;
     dir[0] = dx;
     dir[1] = dy;
 
     switch(type){
-        //TODO 为子弹类型填写相应的图像，设置图像大小,填写size函数（用于move）,同时更改速度
+        //TODO 为子弹类型填写相应的图像，设置图像大小,填写size函数,同时更改速度
     case SLFBULLET:{
             camp = SELF;
+            QPixmap p(":/res/selfbullet.png");
+            p = p.scaled(QSize(30,30));
+            this->setPixmap(p);
             break;
         }
     case EMYBULLET_FIRST:{
@@ -33,10 +36,15 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         }
     case SLFBULLETLEVELUP:{
             camp = SELF;
+            QPixmap p(":/res/selfbullet.png");
+            p = p.scaled(QSize(30,30));
+            this->setPixmap(p);
             bullet_speed = 20;
             break;
         }
     }
+    this->setZValue(2);
+    this->setShapeMode(QGraphicsPixmapItem::MaskShape);
 
 };
 

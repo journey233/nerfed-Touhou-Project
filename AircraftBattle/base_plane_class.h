@@ -13,7 +13,7 @@
 class base_plane_class : public QGraphicsPixmapItem
 {
 public:
-    QList<Bullet*> bullet_list; // 每个机体发射的子弹的链表
+    QList<Bullet*> bullet_list; // 每个机体发射的子弹的链表，需要从playwindow获取
 private:
     int _life; // 血量
     int _speed; // 移动速度
@@ -38,17 +38,27 @@ public:
         double nowX = x0 + this->speed() * dx;
         double nowY = y0 + this->speed() * dy;
         this->setPos(nowX, nowY);
-        // QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-        // animation->setDuration(1000/Fps);
-        // animation->setStartValue(QRect(x0, y0, pix.width(), pix.height()));
-        // animation->setEndValue(QRect(x0 + _speed * dx, y0 + _speed * dy, pix.width(), pix.height()));
-        // animation->setEasingCurve(QEasingCurve::Linear);
-        // animation->start();
     }
-    void attack(int type, int dx, int dy) // 机体向（dx, dy）方向发射一颗子弹
+    virtual void attack(int type, double dx, double dy) // 机体向（dx, dy）方向发射一颗子弹
     {
         Bullet *b= new Bullet(type, dx, dy);
         bullet_list.append(b);
+    }
+    void bullet_move(){ // 子弹移动
+        int len = bullet_list.size();
+        for (int i = 0; i < len; ++i) {
+            bullet_list[i]->move(700,860);
+        }
+    }
+    void bullet_dead(){ // 子弹删除
+        for(auto it = bullet_list.begin();it != bullet_list.end();){
+            if(!(*it)->state){
+                delete (*it);
+                it = bullet_list.erase(it);
+            } else {
+                it++;
+            }
+        }
     }
     void be_attacked() // 机体受击
     {

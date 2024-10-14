@@ -35,6 +35,8 @@ public:
     int offset = 0;
 
     Myplane *myplane = nullptr;
+    int selfattacktimer = 0;
+    bool upgrade = true;//自机升级
 
     bool moving[4] = {0}; // 0左1上2右3下
     int di[4][2] = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };

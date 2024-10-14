@@ -8,6 +8,7 @@ class Myplane : public base_plane_class
 public:
     Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c, QPointF pos, QSize scale,QGraphicsPixmapItem *parent = nullptr);
     void move(double dx, double dy);
+    void attack(int type);
     QGraphicsPixmapItem *hitPoint;//自机命中点
 
 signals:

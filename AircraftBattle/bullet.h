@@ -4,12 +4,12 @@
 
 #define ENEMY false
 #define SELF true
-#define SLFBULLET 0
+#define SLFBULLET true
 #define SLFBULLETLEVELUP 9
-#define EMYBULLET_FIRST 1
-#define EMYBULLET_SECOND 2
-#define EMYBULLET_THIRD 3
-#define EMYBULLET_FORTH 4
+#define EMYBULLET_FIRST 2
+#define EMYBULLET_SECOND 3
+#define EMYBULLET_THIRD 4
+#define EMYBULLET_FORTH 5
 //TODO
 
 

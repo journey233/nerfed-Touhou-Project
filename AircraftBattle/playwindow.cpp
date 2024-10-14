@@ -56,8 +56,10 @@ void PlayWindow::initScene(){
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
-    connect(timer, &QTimer::timeout, this, [=](){
+    connect(timer, &QTimer::timeout, this, [=](){//全局定时器行为
         updateBackground();
+
+        //自机移动
         for(int i = 0; i < 4; ++i)
         {
             double dx = 0, dy = 0;
@@ -69,12 +71,35 @@ void PlayWindow::initScene(){
                 myplane->move(dx / len, dy / len);
             }
         }
+
+
+        //自机子弹移动
+        myplane->bullet_move();
+        //子弹删除
+        myplane->bullet_dead();
+        //5帧产生一个子弹,不是很丝滑
+        if(selfattacktimer%5==0){
+            if(upgrade){
+                myplane->attack(SLFBULLETLEVELUP);
+                int s = myplane->bullet_list.size()-1;//将最新产生的子弹加入scene
+                for (int i = 0; i < 3; ++i) {
+                     scene->addItem(myplane->bullet_list[s-i]);
+                }
+            } else {
+                myplane->attack(SLFBULLET);
+                int s = myplane->bullet_list.size()-1;
+                scene->addItem(myplane->bullet_list[s]);
+            }
+        }
+        selfattacktimer = (selfattacktimer+1)%5;
+
     });
 
     myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
     myplane->setZValue(1);
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
+
 }
 
 
@@ -98,26 +123,6 @@ void PlayWindow::backButton()
     });
 }
 
-// void PlayWindow::keyPressEvent(QKeyEvent *event){
-//     switch(event->key()){
-//     case(Qt::Key_W):
-//         //TODO
-//         myplane->move(0,-1);
-//         break;
-//     case(Qt::Key_A):
-//         //TODO
-//         myplane->move(-1,0);
-//         break;
-//     case(Qt::Key_S):
-//         //TODO
-//         myplane->move(0,1);
-//         break;
-//     case(Qt::Key_D):
-//         //TODO
-//         myplane->move(1,0);
-//         break;
-//     }
-// }
 void PlayWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_W) {

@@ -22,3 +22,24 @@ void Myplane::move(double dx, double dy){
     this->setPos(nowX, nowY);
     hitPoint->setPos(nowX+30,nowY+25);
 };
+
+void Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
+{
+    double dx = 0;
+    double dy = -1;
+    if(type==SLFBULLET){
+        Bullet *b= new Bullet(type, dx, dy);
+        b->setPos(this->x()+25,this->y()-30);
+        bullet_list.append(b);
+    } else if(type==SLFBULLETLEVELUP){
+        Bullet *a = new Bullet(type, dx, dy);
+        Bullet *b = new Bullet(type, dx, dy);
+        Bullet *c = new Bullet(type, dx, dy);
+        a->setPos(this->x()-10,this->y()-30);
+        b->setPos(this->x()+25,this->y()-40);
+        c->setPos(this->x()+60,this->y()-30);
+        bullet_list.append(a);
+        bullet_list.append(b);
+        bullet_list.append(c);
+    }
+}
