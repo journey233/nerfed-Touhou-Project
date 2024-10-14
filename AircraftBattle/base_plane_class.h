@@ -27,7 +27,6 @@
 #include <QGraphicsPixmapItem>
 #include <QList>
 #include "bullet.h"
-#include <QPropertyAnimation>
 
 #define SELF true
 #define ENEMY false

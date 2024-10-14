@@ -10,11 +10,15 @@
 #include "myplane.h"
 #include "enemy.h"
 
+#define life_enemy_1 12
+
 enum EnemyType{
-    enemy,
+    enemy1,
+    enemy2,
     shootenemy1,
     shootenemy2,
-    boss
+    boss1,
+    boss2
 };
 
 class PlayWindow :public QMainWindow
@@ -51,7 +55,7 @@ public:
 
     Myplane *myplane = nullptr;
     int selfattacktimer = 0;
-    bool upgrade = true;//自机升级
+    bool upgrade = false;//自机升级
 
     QList<Enemy*> enemies;
     QList<ShootEnemy*> shootenemies;

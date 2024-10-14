@@ -1,4 +1,4 @@
-#include<Qdebug>
+#include <Qdebug>
 #include "playwindow.h"
 #include <QApplication>
 #include <QScreen>
@@ -64,7 +64,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy1,QPixmap(":/res/enemy_1.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
@@ -119,7 +119,7 @@ void PlayWindow::initScene(){
         selfattacktimer = (selfattacktimer+1)%5;
 
         enemy_clock++;
-        if(enemy_clock%60000==0){
+        if(enemy_clock%(Fps * 60) == 0){
             qDebug()<<"enemy level up!";
             enemy_phase++;
             enemy_clock=0;
@@ -127,6 +127,78 @@ void PlayWindow::initScene(){
                 enemy_phase=3;
                 //产生一个boss
                 a_wave_of_enemies(8);
+            }
+        }
+
+        // 碰撞检测
+        for(auto enemy:enemies)
+        {
+            if(enemy->collidesWithItem(myplane->hitPoint))
+            {
+                myplane->be_attacked();
+            }
+            for(auto b:myplane->bullet_list)
+            {
+                if(enemy->collidesWithItem(b))
+                {
+                    enemy->be_attacked();
+                    b->state = false;
+                }
+            }
+        }
+        for(auto senemy:shootenemies)
+        {
+            if(senemy->collidesWithItem(myplane->hitPoint))
+            {
+                myplane->be_attacked();
+            }
+            for(auto b:myplane->bullet_list)
+            {
+                if(senemy->collidesWithItem(b))
+                {
+                    senemy->be_attacked();
+                    b->state = false;
+                }
+            }
+            for(auto bu:senemy->bullet_list)
+            {
+                if(myplane->hitPoint->collidesWithItem(bu))
+                {
+                    myplane->be_attacked();
+                    bu->state = false;
+                }
+            }
+        }
+
+        // 删除敌机
+        for(auto it = enemies.begin(); it != enemies.end();)
+        {
+            if(!(*it)->is_alive())
+            {
+                delete (*it);
+                it = enemies.erase(it);
+            }
+            else
+            {
+                ++it;
+            }
+        }
+        for(auto it = shootenemies.begin(); it != shootenemies.end();)
+        {
+            if(!(*it)->is_alive())
+            {
+                for(auto b:(*it)->bullet_list)
+                {
+                    b->state = false;
+                }
+                (*it)->bullet_dead();
+                delete (*it)->timer;
+                delete (*it);
+                it = shootenemies.erase(it);
+            }
+            else
+            {
+                ++it;
             }
         }
     });
@@ -227,7 +299,7 @@ void PlayWindow::updateBackground(){
 }
 
 void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y){
-    if(type == enemy){
+    if(type == enemy1){
         Enemy *new_enemy = new Enemy(p,l,s,pos,scale,x,y);
         enemies.append(new_enemy);
         scene->addItem(new_enemy);
@@ -250,78 +322,78 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
 void PlayWindow::a_wave_of_enemies(int n){
     switch(n){
     case 0:{
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,90),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,180),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,90),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(140,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(280,180),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(420,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(560,0),QSize(80,80),0,1);
         break;
     };
     case 1:{
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(0,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(140,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(280,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(420,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(560,90),QSize(80,80),0,1);
         break;
     };
     case 2:{
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,0),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,0),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(140,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(280,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(420,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(560,0),QSize(80,80),0,1);
         break;
     };
     case 3:{
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,270),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,180),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(210,160),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,0),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(350,160),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,90),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,180),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(0,270),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(140,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(210,160),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(280,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(350,160),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(420,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(560,180),QSize(80,80),0,1);
         break;
     };
     case 4:{
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,180),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,90),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,90),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,180),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(560,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(0,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(140,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(280,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(280,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(280,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(420,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(560,180),QSize(80,80),0,1);
         break;
     };
     case 5:{
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(100,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(100,270),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(200,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,270),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(400,360),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(500,0),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(500,270),QSize(80,80),0,1);
-        createEnemy(enemy,QPixmap(":/res/myplane0.png"),1,1,QPointF(600,90),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(0,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(100,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(100,270),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(200,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(300,270),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(400,360),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(500,0),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(500,270),QSize(80,80),0,1);
+        createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,1,QPointF(600,90),QSize(80,80),0,1);
         break;
     };
     case 6:{
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(140,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(280,180),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(420,270),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(180,0),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(320,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(460,180),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(600,270),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(140,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(280,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(420,270),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(180,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(320,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(460,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(600,270),QSize(80,80),0,1);
         break;
     };
     case 7:{
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(0,0),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(100,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(200,180),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,90),QSize(80,80),0,1);
-        createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(400,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(0,0),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(100,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(200,180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(300,90),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_enemy_1,1,QPointF(400,0),QSize(80,80),0,1);
         break;
     };
     case 8:{
