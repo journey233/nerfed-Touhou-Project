@@ -23,7 +23,7 @@ void Myplane::move(double dx, double dy){
     hitPoint->setPos(nowX+30,nowY+25);
 };
 
-void Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
+int Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
 {
     double dx = 0;
     double dy = -1;
@@ -31,15 +31,27 @@ void Myplane::attack(int type) // 机体向（dx, dy）方向发射一颗子弹
         Bullet *b= new Bullet(type, dx, dy);
         b->setPos(this->x()+25,this->y()-30);
         bullet_list.append(b);
+        return 1;
     } else if(type==SLFBULLETLEVELUP){
+        int op = 0;
         Bullet *a = new Bullet(type, dx, dy);
         Bullet *b = new Bullet(type, dx, dy);
         Bullet *c = new Bullet(type, dx, dy);
-        a->setPos(this->x()-10,this->y()-30);
-        b->setPos(this->x()+25,this->y()-40);
-        c->setPos(this->x()+60,this->y()-30);
+        double thisX = this->x();
+        double thisY = this->y();
+        if(thisX-10>-30){
+        a->setPos(thisX-10,thisY-30);
         bullet_list.append(a);
+        op++;
+        }
+        b->setPos(thisX+25,thisY-40);
         bullet_list.append(b);
+        op++;
+        if(thisX+60<680){
+        c->setPos(thisX+60,thisY-30);
         bullet_list.append(c);
+        op++;
+        }
+        return op;
     }
 }

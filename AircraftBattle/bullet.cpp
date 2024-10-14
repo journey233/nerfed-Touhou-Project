@@ -15,6 +15,8 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             camp = SELF;
             QPixmap p(":/res/selfbullet.png");
             p = p.scaled(QSize(30,30));
+            size[0] = 30;
+            size[1] = 30;
             this->setPixmap(p);
             break;
         }
@@ -38,6 +40,8 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             camp = SELF;
             QPixmap p(":/res/selfbullet.png");
             p = p.scaled(QSize(30,30));
+            size[0] = 30;
+            size[1] = 30;
             this->setPixmap(p);
             bullet_speed = 20;
             break;

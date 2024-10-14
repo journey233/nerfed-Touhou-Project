@@ -9,6 +9,8 @@
 #define SELF true
 #define ENEMY false
 #define Fps 60 // 帧率
+#define screenWid  680
+#define screenHei  860
 
 class base_plane_class : public QGraphicsPixmapItem
 {
@@ -39,15 +41,16 @@ public:
         double nowY = y0 + this->speed() * dy;
         this->setPos(nowX, nowY);
     }
-    virtual void attack(int type, double dx, double dy) // 机体向（dx, dy）方向发射一颗子弹
+    virtual int attack(int type, double dx, double dy) // 机体向（dx, dy）方向发射一颗子弹
     {
         Bullet *b= new Bullet(type, dx, dy);
         bullet_list.append(b);
+        return 1;
     }
     void bullet_move(){ // 子弹移动
         int len = bullet_list.size();
         for (int i = 0; i < len; ++i) {
-            bullet_list[i]->move(700,860);
+            bullet_list[i]->move(680,860);
         }
     }
     void bullet_dead(){ // 子弹删除

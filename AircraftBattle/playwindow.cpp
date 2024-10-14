@@ -80,9 +80,9 @@ void PlayWindow::initScene(){
         //5帧产生一个子弹,不是很丝滑
         if(selfattacktimer%5==0){
             if(upgrade){
-                myplane->attack(SLFBULLETLEVELUP);
+                int num = myplane->attack(SLFBULLETLEVELUP);
                 int s = myplane->bullet_list.size()-1;//将最新产生的子弹加入scene
-                for (int i = 0; i < 3; ++i) {
+                for (int i = 0; i < num; ++i) {
                      scene->addItem(myplane->bullet_list[s-i]);
                 }
             } else {
