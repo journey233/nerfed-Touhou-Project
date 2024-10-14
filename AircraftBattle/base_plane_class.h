@@ -67,6 +67,7 @@ public:
     virtual int attack(int type, double dx, double dy) // 机体向（dx, dy）方向发射一颗子弹
     {
         Bullet *b= new Bullet(type, dx, dy);
+        b->setPos(this->x(),this->y());
         bullet_list.append(b);
         return 1;
     }

@@ -22,11 +22,12 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         }
     case EMYBULLET_FIRST:{
             camp = ENEMY;
-            QPixmap p(":/res/enemy_bullet_0.png");
+            QPixmap p(":/res/enemy_bullet0.png");
             p = p.scaled(QSize(20,20));
             size[0]=20;
             size[1]=20;
             this->setPixmap(p);
+
             break;
         }
     case EMYBULLET_SECOND:{

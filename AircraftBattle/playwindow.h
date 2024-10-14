@@ -44,6 +44,7 @@ public:
     QPixmap backgroundPixmap;
     int offset = 0;
 
+
     QGraphicsPixmapItem *barItem;
     QPixmap barPixmap;
 

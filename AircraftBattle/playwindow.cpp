@@ -62,10 +62,11 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy1,QPixmap(":/res/myplane0.png"),1,1,QPointF(300,600),QSize(80,80),0,1);
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
+
     connect(timer, &QTimer::timeout, this, [=](){//全局定时器行为
         updateBackground();
 
@@ -105,7 +106,7 @@ void PlayWindow::initScene(){
                 int num = myplane->attack(SLFBULLETLEVELUP, 0, 0);
                 int s = myplane->bullet_list.size()-1;//将最新产生的子弹加入scene
                 for (int i = 0; i < num; ++i) {
-                     scene->addItem(myplane->bullet_list[s-i]);
+                    scene->addItem(myplane->bullet_list[s-i]);
                 }
             } else {
                 myplane->attack(SLFBULLET, 0, 0);
@@ -116,6 +117,7 @@ void PlayWindow::initScene(){
         selfattacktimer = (selfattacktimer+1)%5;
 
     });
+
 
     myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
     myplane->setZValue(1);
@@ -147,6 +149,7 @@ void PlayWindow::backButton()
 
 void PlayWindow::keyPressEvent(QKeyEvent *event)
 {
+    //gameStart = true;
     if (event->key() == Qt::Key_W) {
         moving[1] = true;
     } else if (event->key() == Qt::Key_S) {
