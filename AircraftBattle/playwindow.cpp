@@ -65,7 +65,7 @@ void PlayWindow::initScene(){
     backButton();
 
     createEnemy(shootenemy1,QPixmap(":/res/enemy_1.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
-    bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 700), QSize(1, 1), 0, 0);
+    bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
     timer = new QTimer(this);
