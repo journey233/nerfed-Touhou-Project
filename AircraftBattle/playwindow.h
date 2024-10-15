@@ -57,6 +57,7 @@ public:
     int selfattacktimer = 0;
     bool upgrade = false;//自机升级
 
+    Enemy * bullet_supporter;
     QList<Enemy*> enemies;
     QList<ShootEnemy*> shootenemies;
 

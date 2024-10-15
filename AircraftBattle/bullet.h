@@ -21,6 +21,7 @@ class Bullet : public QGraphicsPixmapItem
 {
 public:
     Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem *parent = nullptr);
+    Bullet(const Bullet &bul, QGraphicsPixmapItem *parent = nullptr);
     int type;//子弹类型，据此写子弹pixmap及其大小，switch type：//TODO
     int bullet_speed;//弹速
     bool state;//子弹是否仍然存活

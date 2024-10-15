@@ -65,6 +65,8 @@ void PlayWindow::initScene(){
     backButton();
 
     createEnemy(shootenemy1,QPixmap(":/res/enemy_1.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
+    bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 700), QSize(1, 1), 0, 0);
+    scene->addItem(bullet_supporter);
 
     timer = new QTimer(this);
     timer->start(1000/Fps);
@@ -101,6 +103,8 @@ void PlayWindow::initScene(){
             m->bullet_move();
             m->bullet_dead();
         }
+        bullet_supporter->bullet_move();
+        bullet_supporter->bullet_dead();
 
         //5帧产生一个子弹,不是很丝滑
         if(selfattacktimer%5==0){
@@ -189,6 +193,10 @@ void PlayWindow::initScene(){
             {
                 for(auto b:(*it)->bullet_list)
                 {
+                    auto tmp = new Bullet(*b);
+                    tmp->setPos(b->pos());
+                    bullet_supporter->bullet_list.append(tmp);
+                    scene->addItem(bullet_supporter->bullet_list[bullet_supporter->bullet_list.size() - 1]);
                     b->state = false;
                 }
                 (*it)->bullet_dead();
