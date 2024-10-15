@@ -312,7 +312,7 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         enemies.append(new_enemy);
         scene->addItem(new_enemy);
     }
-
+    //修改射击模式
     if(type == shootenemy1){
         ShootEnemy *new_enemy = new ShootEnemy(p,l,s,pos,scale,x,y);
         connect(new_enemy->timer, &QTimer::timeout,this,[=](){
@@ -325,6 +325,8 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         shootenemies.append(new_enemy);
         scene->addItem(new_enemy);
     }
+
+    //添加精英怪
 }
 
 void PlayWindow::a_wave_of_enemies(int n){

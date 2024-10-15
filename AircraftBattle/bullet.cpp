@@ -26,7 +26,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             p = p.scaled(QSize(30,30));
             size[0]=30;
             size[1]=30;
-            bullet_speed = 6;
+            bullet_speed = 3;
             this->setPixmap(p);
             break;
         }

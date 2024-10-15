@@ -3,6 +3,7 @@
 
 #include "base_plane_class.h"
 #include <QTimer>
+#include <cmath>
 class Enemy : public base_plane_class
 {
 protected:
@@ -20,6 +21,8 @@ public:
     QTimer *timer;
 
     ShootEnemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y, QGraphicsPixmapItem *parent = nullptr);
+
+    int attack(int type,double dx, double dy);
 signals:
 };
 
