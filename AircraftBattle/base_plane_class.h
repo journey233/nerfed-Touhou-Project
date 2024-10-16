@@ -109,6 +109,10 @@ public:
     bool is_alive(){
         return _state;
     }
+    void setSpeed(int s)
+    {
+        _speed = s;
+    }
 
 signals:
 };

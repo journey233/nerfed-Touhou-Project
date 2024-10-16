@@ -64,7 +64,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy1,QPixmap(":/res/enemy_1.png"),1,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy1,QPixmap(":/res/enemy_1.png"),11,1,QPointF(300,0),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -75,6 +75,7 @@ void PlayWindow::initScene(){
         updateBackground();
 
         //自机移动
+        myplane->setSpeed((myplane->low_speed == true) ? 2 : 8);
         for(int i = 0; i < 4; ++i)
         {
             double dx = 0, dy = 0;
@@ -135,6 +136,14 @@ void PlayWindow::initScene(){
         }
 
         // 碰撞检测
+        for(auto b:bullet_supporter->bullet_list)
+        {
+            if(myplane->hitPoint->collidesWithItem(b))
+            {
+                myplane->be_attacked();
+                b->state = false;
+            }
+        }
         for(auto enemy:enemies)
         {
             if(enemy->collidesWithItem(myplane->hitPoint))
@@ -212,7 +221,7 @@ void PlayWindow::initScene(){
     });
 
 
-    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
+    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),3,8,SELF,QPointF(300,600),QSize(80,80));
     myplane->setZValue(1);
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
@@ -275,6 +284,8 @@ void PlayWindow::keyPressEvent(QKeyEvent *event)
         moving[0] = true;
     } else if (event->key() == Qt::Key_D) {
         moving[2] = true;
+    } else if (event->key() == Qt::Key_P) {
+        myplane->low_speed = true;
     }
 }
 
@@ -288,6 +299,8 @@ void PlayWindow::keyReleaseEvent(QKeyEvent *event)
         moving[0] = false;
     } else if (event->key() == Qt::Key_D) {
         moving[2] = false;
+    } else if (event->key() == Qt::Key_P) {
+        myplane->low_speed = false;
     }
 }
 

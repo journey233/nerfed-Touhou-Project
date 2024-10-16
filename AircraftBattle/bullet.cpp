@@ -84,8 +84,7 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
     this->state = 1;
     this->dir[0] = bul.dir[0];
     this->dir[1] = bul.dir[1];
-    this->setZValue(2);
-    this->setShapeMode(QGraphicsPixmapItem::MaskShape);
+
     switch(type){
         //TODO 为子弹类型填写相应的图像，设置图像大小,填写size函数,同时更改速度
     case SLFBULLET:{
@@ -103,7 +102,6 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
         p = p.scaled(QSize(30,30));
         size[0]=30;
         size[1]=30;
-        bullet_speed = 6;
         this->setPixmap(p);
         break;
     }
@@ -123,7 +121,6 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
         size[0] = 10;
         size[1] = 60;
         this->setPixmap(p);
-        bullet_speed = 5;
         a = 2;//加速度
         break;
     }
@@ -134,7 +131,6 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
         size[0] = 20;
         size[1] = 80;
         this->setPixmap(p);
-        bullet_speed = 10;
         a = 2;
         break;
     }
@@ -145,10 +141,11 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
         size[0] = 30;
         size[1] = 30;
         this->setPixmap(p);
-        bullet_speed = 20;
         break;
     }
     }
+    this->setZValue(2);
+    this->setShapeMode(QGraphicsPixmapItem::MaskShape);
 }
 
 void Bullet::move(const int screen_x,const int screen_y){

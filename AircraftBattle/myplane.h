@@ -10,6 +10,7 @@ public:
     int nondead_time = 5 * Fps;
     int time_after_death = 0;
     bool nondead = false;
+    bool low_speed = false;
     void move(double dx, double dy);
     int attack(int type, double dxx, double dyy);
     void be_attacked();
