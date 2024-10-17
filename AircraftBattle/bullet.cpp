@@ -42,12 +42,15 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
     case EMYBULLET_THIRD:{//精英子弹，加速
             camp = ENEMY;
             QPixmap p(":/res/enemy_bullet_3.png");
-            p = p.scaled(QSize(10,60));
-            size[0] = 10;
-            size[1] = 60;
+            p = p.scaled(QSize(20,150));
+            size[0] = 20;
+            size[1] = 150;
             this->setPixmap(p);
-            bullet_speed = 5;
-            a = 2;//加速度
+            if(dy){
+                this->setRotation(-(atan(dx/dy)*(180.0/M_PI)));
+            }
+            bullet_speed = 0;
+            a = 0.3;//加速度
             break;
         }
     case BOSSBULLET_FIRST:{
@@ -58,7 +61,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             size[1] = 80;
             this->setPixmap(p);
             bullet_speed = 10;
-            a = 2;
+            a = 0.5;
             break;
         }
     case SLFBULLETLEVELUP:{
@@ -117,11 +120,14 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
     case EMYBULLET_THIRD:{//精英子弹，加速
         camp = ENEMY;
         QPixmap p(":/res/enemy_bullet_3.png");
-        p = p.scaled(QSize(10,60));
-        size[0] = 10;
-        size[1] = 60;
+        p = p.scaled(QSize(20,150));
+        size[0] = 20;
+        size[1] = 150;
         this->setPixmap(p);
-        a = 2;//加速度
+        if(dir[1]){
+            this->setRotation(-atan(dir[0]/dir[1])*(180.0/M_PI));
+        }
+        a = 0.3;//加速度
         break;
     }
     case BOSSBULLET_FIRST:{

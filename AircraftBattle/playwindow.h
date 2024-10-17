@@ -17,6 +17,7 @@ enum EnemyType{
     enemy2,
     shootenemy1,
     shootenemy2,
+    shootenemy3,
     boss1,
     boss2
 };

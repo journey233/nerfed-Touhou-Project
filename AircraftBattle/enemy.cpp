@@ -10,7 +10,7 @@ ShootEnemy::ShootEnemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale,
     :Enemy(p, l, s, pos, scale, x, y, parent)
 {
     timer = new QTimer();
-    timer->start(750);
+    timer->start(1500);
 }
 
 int ShootEnemy::attack(int type,double dx,double dy){
@@ -21,5 +21,12 @@ int ShootEnemy::attack(int type,double dx,double dy){
         bullet_list.append(b);
     }
     return 6;
+    } else if(type==EMYBULLET_SECOND){
+
+    } else if(type==EMYBULLET_THIRD){
+        Bullet *b = new Bullet(type,dx,dy);
+        b->setPos(this->x() + this->pix.width() / 2 - b->size[0] / 2,this->y() + this->pix.height());
+        bullet_list.append(b);
+        return 1;
     }
 }

@@ -64,7 +64,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy1,QPixmap(":/res/enemy_1.png"),11,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),110,1,QPointF(300,0),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -353,8 +353,37 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         shootenemies.append(new_enemy);
         scene->addItem(new_enemy);
     }
+    if(type==shootenemy2){
 
+    }
     //添加精英怪
+    if(type==shootenemy3){
+        ShootEnemy *new_enemy = new ShootEnemy(p,l,s,pos,scale,x,y);
+        connect(new_enemy->timer,&QTimer::timeout,this,[=](){
+            int tp = rand()%4;
+            if(tp==0||tp==1){
+                int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
+                int s = new_enemy->bullet_list.size()-1;
+                for (int i = 0; i < num; ++i) {
+                    scene->addItem(new_enemy->bullet_list[s-i]);
+                }
+            } else if(tp==2){
+
+            } else if(tp==3){
+                double dx,dy;
+                dx = myplane->hitPoint->x()-new_enemy->x()-20;
+                dy = myplane->hitPoint->y()-new_enemy->y()-65;
+                double len = sqrt(dx*dx+dy*dy);
+                int num = new_enemy->attack(EMYBULLET_THIRD,dx/len,dy/len);
+                int s = new_enemy->bullet_list.size()-1;
+                for (int i = 0; i < num; ++i) {
+                    scene->addItem(new_enemy->bullet_list[s-i]);
+                }
+            }
+        });
+        shootenemies.append(new_enemy);
+        scene->addItem(new_enemy);
+    }
 }
 
 void PlayWindow::a_wave_of_enemies(int n){
