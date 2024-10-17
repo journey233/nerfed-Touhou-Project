@@ -57,11 +57,18 @@ public:
 
     virtual void move(double dx, double dy) // 机体向（dx, dy）方向移动一次
     {
-        double x0 = this->x();
-        double y0 = this->y();
-        double nowX = x0 + this->speed() * dx;
-        double nowY = y0 + this->speed() * dy;
-        this->setPos(nowX, nowY);
+        if(_state)
+        {
+            double x0 = this->x();
+            double y0 = this->y();
+            double nowX = x0 + this->speed() * dx;
+            double nowY = y0 + this->speed() * dy;
+            if(nowX <= -pix.width() || nowX >= 740 || nowY >= 860)
+            {
+                _state = false;
+            }
+            this->setPos(nowX, nowY);
+        }
     }
     virtual int attack(int type, double dx, double dy) // 机体向（dx, dy）方向发射一颗子弹
     {
