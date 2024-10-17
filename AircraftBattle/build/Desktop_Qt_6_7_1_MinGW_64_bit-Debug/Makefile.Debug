@@ -363,6 +363,8 @@ debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		../../myplane.h \
 		../../base_plane_class.h \
 		../../bullet.h \
+		D:/QT/6.7.1/mingw_64/include/QtCore/QStack \
+		D:/QT/6.7.1/mingw_64/include/QtCore/qstack.h \
 		../../enemy.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/QTimer \
 		D:/QT/6.7.1/mingw_64/include/QtCore/qtimer.h \
@@ -574,6 +576,8 @@ debug/moc_playwindow.cpp: ../../playwindow.h \
 		../../myplane.h \
 		../../base_plane_class.h \
 		../../bullet.h \
+		D:/QT/6.7.1/mingw_64/include/QtCore/QStack \
+		D:/QT/6.7.1/mingw_64/include/QtCore/qstack.h \
 		../../enemy.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/QTimer \
 		D:/QT/6.7.1/mingw_64/include/QtCore/qtimer.h \
@@ -1097,6 +1101,8 @@ debug/main.o: ../../main.cpp ../../mainwindow.h \
 		../../myplane.h \
 		../../base_plane_class.h \
 		../../bullet.h \
+		D:/QT/6.7.1/mingw_64/include/QtCore/QStack \
+		D:/QT/6.7.1/mingw_64/include/QtCore/qstack.h \
 		../../enemy.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/QTimer \
 		D:/QT/6.7.1/mingw_64/include/QtCore/qtimer.h \
@@ -1309,20 +1315,13 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../myplane.h \
 		../../base_plane_class.h \
 		../../bullet.h \
+		D:/QT/6.7.1/mingw_64/include/QtCore/QStack \
+		D:/QT/6.7.1/mingw_64/include/QtCore/qstack.h \
 		../../enemy.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/QTimer \
 		D:/QT/6.7.1/mingw_64/include/QtCore/qtimer.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/qbasictimer.h \
 		ui_mainwindow.h \
-		D:/QT/6.7.1/mingw_64/include/QtCore/QVariant \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/QApplication \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/qapplication.h \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/QMenuBar \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/qmenubar.h \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/qmenu.h \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/QStatusBar \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/qstatusbar.h \
-		D:/QT/6.7.1/mingw_64/include/QtWidgets/QWidget \
 		../../mypushbutton.h \
 		D:/QT/6.7.1/mingw_64/include/QtWidgets/QPushButton \
 		D:/QT/6.7.1/mingw_64/include/QtWidgets/qpushbutton.h \
@@ -1473,7 +1472,9 @@ debug/myplane.o: ../../myplane.cpp ../../myplane.h \
 		D:/QT/6.7.1/mingw_64/include/QtGui/qimage.h \
 		D:/QT/6.7.1/mingw_64/include/QtGui/qpixelformat.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/QList \
-		../../bullet.h
+		../../bullet.h \
+		D:/QT/6.7.1/mingw_64/include/QtCore/QStack \
+		D:/QT/6.7.1/mingw_64/include/QtCore/qstack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\myplane.o ..\..\myplane.cpp
 
 debug/mypushbutton.o: ../../mypushbutton.cpp ../../mypushbutton.h \
@@ -1879,6 +1880,8 @@ debug/playwindow.o: ../../playwindow.cpp D:/QT/6.7.1/mingw_64/include/QtCore/Qde
 		../../myplane.h \
 		../../base_plane_class.h \
 		../../bullet.h \
+		D:/QT/6.7.1/mingw_64/include/QtCore/QStack \
+		D:/QT/6.7.1/mingw_64/include/QtCore/qstack.h \
 		../../enemy.h \
 		D:/QT/6.7.1/mingw_64/include/QtCore/QTimer \
 		D:/QT/6.7.1/mingw_64/include/QtCore/qtimer.h \

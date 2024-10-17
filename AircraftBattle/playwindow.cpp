@@ -56,7 +56,7 @@ void PlayWindow::initScene(){
     barPixmap = QPixmap(":/res/bar.png");
     // 创建边栏项
     barItem = new QGraphicsPixmapItem(barPixmap.scaled(70,860));
-    barItem->setZValue(2);
+    barItem->setZValue(3);
     // 添加边栏项到场景
     scene->addItem(barItem);
     barItem->setPos(670, 0);
@@ -91,7 +91,18 @@ void PlayWindow::initScene(){
         // 自机处于无敌状态的处理
         if(myplane->nondead){
             ++myplane->time_after_death;
+            // 无敌时闪烁
+            if(myplane->time_after_death%20<10){
+                myplane->hide();
+                myplane->hitPoint->hide();
+            }
+            else{
+                myplane->show();
+                myplane->hitPoint->show();
+            }
             if(myplane->time_after_death == myplane->nondead_time){
+                myplane->show();
+                myplane->hitPoint->show();
                 myplane->nondead = false;
                 myplane->time_after_death = 0;
             }
