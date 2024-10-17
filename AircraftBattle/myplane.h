@@ -2,6 +2,7 @@
 #define MYPLANE_H
 
 #include "base_plane_class.h"
+#include <QStack>
 
 class Myplane : public base_plane_class
 {
@@ -15,6 +16,11 @@ public:
     int attack(int type, double dxx, double dyy);
     void be_attacked();
     QGraphicsPixmapItem *hitPoint;//自机命中点
+
+    QStack<QGraphicsPixmapItem*> hp;
+    QStack<QGraphicsPixmapItem*> lost_hp;
+    QPixmap bloodPixmap;
+    QPixmap lostbloodPixmap;
 
 signals:
 };

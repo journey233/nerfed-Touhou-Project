@@ -8,6 +8,16 @@ Myplane::Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c,
     hitPoint->setPixmap(nh);
     hitPoint->setPos(pos.x()+30,pos.y()+25);
     hitPoint->setShapeMode(QGraphicsPixmapItem::MaskShape);
+
+    bloodPixmap = QPixmap(":/res/selfbullet.png");
+    lostbloodPixmap = QPixmap(":/res/enemy_bullet_2.png");
+    for(int i=0;i<l;i++){
+        QGraphicsPixmapItem* blood = new QGraphicsPixmapItem();
+        blood->setPixmap(bloodPixmap);
+        blood->setPos(680,100+80*i);
+        blood->setZValue(3);
+        hp.push_back(blood);
+    }
 };
 
 void Myplane::move(double dx, double dy){
@@ -65,6 +75,9 @@ void Myplane::be_attacked()
         }
         else{
             --(this->_life);
+            hp.top()->setPixmap(lostbloodPixmap);
+            lost_hp.push_back(hp.top());
+            hp.pop_back();
             nondead = true;
         }
     }

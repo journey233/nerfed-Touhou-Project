@@ -56,7 +56,7 @@ void PlayWindow::initScene(){
     barPixmap = QPixmap(":/res/bar.png");
     // 创建边栏项
     barItem = new QGraphicsPixmapItem(barPixmap.scaled(70,860));
-    barItem->setZValue(3);
+    barItem->setZValue(2);
     // 添加边栏项到场景
     scene->addItem(barItem);
     barItem->setPos(670, 0);
@@ -149,6 +149,7 @@ void PlayWindow::initScene(){
             if(enemy->collidesWithItem(myplane->hitPoint))
             {
                 myplane->be_attacked();
+                qDebug()<<myplane->life();
             }
             for(auto b:myplane->bullet_list)
             {
@@ -221,8 +222,11 @@ void PlayWindow::initScene(){
     });
 
 
-    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),3,8,SELF,QPointF(300,600),QSize(80,80));
+    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
     myplane->setZValue(1);
+    for(auto h : myplane->hp){
+        scene->addItem(h);
+    }
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
 
