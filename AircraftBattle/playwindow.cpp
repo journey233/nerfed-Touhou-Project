@@ -41,7 +41,7 @@ void PlayWindow::initScene(){
     setCentralWidget(view);
 
     // 加载背景图片
-    backgroundPixmap = QPixmap(":/res/background.jpg");
+    backgroundPixmap = QPixmap(":/res/background.jpg").scaled(680,2543);
     backgroundheight = backgroundPixmap.height();
     offset = -backgroundheight/2;
     // 创建背景项

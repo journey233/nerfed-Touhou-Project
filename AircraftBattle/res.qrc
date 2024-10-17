@@ -21,5 +21,6 @@
         <file>res/shootenemy_1.png</file>
         <file>res/shootenemy_2.png</file>
         <file>res/enemy_bullet_2.png</file>
+        <file>res/hp.png</file>
     </qresource>
 </RCC>

@@ -9,12 +9,12 @@ Myplane::Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c,
     hitPoint->setPos(pos.x()+30,pos.y()+25);
     hitPoint->setShapeMode(QGraphicsPixmapItem::MaskShape);
 
-    bloodPixmap = QPixmap(":/res/selfbullet.png");
-    lostbloodPixmap = QPixmap(":/res/enemy_bullet_2.png");
+    bloodPixmap = QPixmap(":/res/hp.png").scaled(40, 40, Qt::KeepAspectRatio);
+    lostbloodPixmap = QPixmap("");
     for(int i=0;i<l;i++){
         QGraphicsPixmapItem* blood = new QGraphicsPixmapItem();
         blood->setPixmap(bloodPixmap);
-        blood->setPos(680,100+80*i);
+        blood->setPos(690,100+80*i);
         blood->setZValue(4);
         hp.push_back(blood);
     }
