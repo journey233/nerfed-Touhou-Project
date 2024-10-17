@@ -64,7 +64,7 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),110,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -371,8 +371,8 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
 
             } else if(tp==3){
                 double dx,dy;
-                dx = myplane->hitPoint->x()-new_enemy->x()-20;
-                dy = myplane->hitPoint->y()-new_enemy->y()-65;
+                dx = myplane->hitPoint->x()-new_enemy->x()-35;
+                dy = myplane->hitPoint->y()-new_enemy->y()-72;
                 double len = sqrt(dx*dx+dy*dy);
                 int num = new_enemy->attack(EMYBULLET_THIRD,dx/len,dy/len);
                 int s = new_enemy->bullet_list.size()-1;
