@@ -75,7 +75,7 @@ void PlayWindow::initScene(){
         updateBackground();
 
         //自机移动
-        myplane->setSpeed((myplane->low_speed == true) ? 2 : 8);
+        myplane->setSpeed((myplane->low_speed == true) ? 3 : 8);
         for(int i = 0; i < 4; ++i)
         {
             double dx = 0, dy = 0;
