@@ -15,7 +15,7 @@ Myplane::Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c,
         QGraphicsPixmapItem* blood = new QGraphicsPixmapItem();
         blood->setPixmap(bloodPixmap);
         blood->setPos(680,100+80*i);
-        blood->setZValue(3);
+        blood->setZValue(4);
         hp.push_back(blood);
     }
 };

@@ -56,7 +56,7 @@ void PlayWindow::initScene(){
     barPixmap = QPixmap(":/res/bar.png");
     // 创建边栏项
     barItem = new QGraphicsPixmapItem(barPixmap.scaled(70,860));
-    barItem->setZValue(2);
+    barItem->setZValue(3);
     // 添加边栏项到场景
     scene->addItem(barItem);
     barItem->setPos(670, 0);
