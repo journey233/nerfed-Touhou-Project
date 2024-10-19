@@ -1,12 +1,13 @@
 #include "myplane.h"
 
 Myplane::Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c, QPointF pos, QSize scale,QGraphicsPixmapItem *parent):base_plane_class(p,l,s,c,pos,scale,parent){
-    scale/=4;
+    scale/=16;
+    scale*=3;
     QPixmap nh = hitpoint.scaled(scale);
     hitPoint = new QGraphicsPixmapItem();
     hitPoint->setZValue(2);
     hitPoint->setPixmap(nh);
-    hitPoint->setPos(pos.x()+30,pos.y()+25);
+    hitPoint->setPos(pos.x()+32.5,pos.y()+27.5);
     hitPoint->setShapeMode(QGraphicsPixmapItem::MaskShape);
 
     bloodPixmap = QPixmap(":/res/hp.png").scaled(40, 40, Qt::KeepAspectRatio,Qt::SmoothTransformation);
@@ -30,7 +31,7 @@ void Myplane::move(double dx, double dy){
     if(nowY>=815) nowY=815;
     if(nowY<=-25) nowY=-25;
     this->setPos(nowX, nowY);
-    hitPoint->setPos(nowX+30,nowY+25);
+    hitPoint->setPos(nowX+32.5,nowY+27.5);
 };
 
 int Myplane::attack(int type, double dxx, double dyy) // 机体向（dx, dy）方向发射一颗子弹

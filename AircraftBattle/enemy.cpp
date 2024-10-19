@@ -3,12 +3,25 @@
 Enemy::Enemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y, QGraphicsPixmapItem *parent)
     :base_plane_class(p, l, s, ENEMY, pos, scale, parent)
 {
+    move_timer= new QTimer();
+    move_timer->start(1000/Fps);
     dir[0] = x; dir[1] = y;
+    if(dir[1]){
+        this->setTransformOriginPoint(40,40);
+        this->setRotation(-(atan(dir[0]/dir[1])*(180.0/M_PI)));
+    }
 }
 
 ShootEnemy::ShootEnemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y, QGraphicsPixmapItem *parent)
     :Enemy(p, l, s, pos, scale, x, y, parent)
 {
+    move_timer= new QTimer();
+    move_timer->start(1000/Fps);
+    dir[0]=x;dir[1]=y;
+    if(dir[1]){
+        this->setTransformOriginPoint(40,40);
+        this->setRotation(-(atan(dir[0]/dir[1])*(180.0/M_PI)));
+    }
     timer = new QTimer();
     timer->start(1500);
 }

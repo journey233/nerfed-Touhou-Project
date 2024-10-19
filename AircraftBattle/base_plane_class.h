@@ -40,7 +40,7 @@ public:
     QList<Bullet*> bullet_list; // 每个机体发射的子弹的链表，需要从playwindow获取
 protected:
     int _life; // 血量
-    int _speed; // 移动速度
+    double _speed; // 移动速度
     // 自机可能还需要添加是否处于无敌状态的变量
     bool _camp; // 机体的阵营 自机->SELF，敌机->ENEMY
     bool _state; // 是否活着
@@ -63,7 +63,7 @@ public:
             double y0 = this->y();
             double nowX = x0 + this->speed() * dx;
             double nowY = y0 + this->speed() * dy;
-            if(nowX <= -pix.width() || nowX >= 740 || nowY >= 860)
+            if(nowX <= -pix.width() || nowX >= 760 || nowY >= 860)
             {
                 _state = false;
             }

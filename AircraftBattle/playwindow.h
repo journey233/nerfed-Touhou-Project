@@ -13,6 +13,13 @@
 #include "enemy.h"
 
 #define life_enemy_1 12
+#define enemy_speed_norm 3
+#define enemy_move_angle_x0 0.86
+#define enemy_move_angle_x1 0.5
+#define enemy_move_angle_x2 0.26
+#define enemy_move_angle_y0 0.5
+#define enemy_move_angle_y1 0.86
+#define enemy_move_angle_y2 0.96
 
 enum EnemyType{
     enemy1,
@@ -72,6 +79,7 @@ public:
     int enemy_phase=1;
     int enemy_clock=0;
     QTimer *enemy_generate;
+    QTimer *enemy_move;
 
     int gameStop = 1;
 
