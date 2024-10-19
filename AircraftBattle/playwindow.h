@@ -14,10 +14,10 @@
 
 #define life_enemy_1 12
 #define enemy_speed_norm 3
-#define enemy_move_angle_x0 0.86
+#define enemy_move_angle_x0 0.17
 #define enemy_move_angle_x1 0.5
 #define enemy_move_angle_x2 0.26
-#define enemy_move_angle_y0 0.5
+#define enemy_move_angle_y0 0.98
 #define enemy_move_angle_y1 0.86
 #define enemy_move_angle_y2 0.96
 

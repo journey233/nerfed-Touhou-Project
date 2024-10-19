@@ -71,7 +71,7 @@ void PlayWindow::initScene(){
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
 
-    //createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -405,6 +405,15 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         Enemy *new_enemy = new Enemy(p,l,s,pos,scale,x,y);
         connect(new_enemy->move_timer,&QTimer::timeout,this,[=](){
             new_enemy->move(new_enemy->dir[0],new_enemy->dir[1]);
+            new_enemy->move_transfer++;
+            if(new_enemy->move_transfer>=60){
+                new_enemy->move_transfer=0;
+                new_enemy->dir[0]*=(-1);
+                if(new_enemy->dir[1]){
+                    new_enemy->setTransformOriginPoint(40,40);
+                    new_enemy->setRotation(-(atan(new_enemy->dir[0]/new_enemy->dir[1])*(180.0/M_PI)));
+                }
+            }
         });
         enemies.append(new_enemy);
         scene->addItem(new_enemy);

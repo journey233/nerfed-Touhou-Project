@@ -47,6 +47,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             size[1] = 150;
             this->setPixmap(p);
             if(dy){
+                // this->setTransformOriginPoint(10,75);
                 this->setRotation(-(atan(dx/dy)*(180.0/M_PI)));
             }
             bullet_speed = 0;
