@@ -12,8 +12,12 @@
 #include "myplane.h"
 #include "enemy.h"
 
+#define life_senemy_1 8
 #define life_enemy_1 12
+#define life_enemy_3 50
 #define enemy_speed_norm 3
+#define senemy_speed_norm 2
+#define Senemy_speed 1
 #define enemy_move_angle_x0 0.17
 #define enemy_move_angle_x1 0.5
 #define enemy_move_angle_x2 0.26

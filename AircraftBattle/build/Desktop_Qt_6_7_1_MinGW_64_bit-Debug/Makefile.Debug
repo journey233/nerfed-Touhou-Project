@@ -1360,15 +1360,6 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtCore/qtimer.h \
 		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtCore/qbasictimer.h \
 		ui_mainwindow.h \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtCore/QVariant \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/QApplication \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/qapplication.h \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/QMenuBar \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/qmenubar.h \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/qmenu.h \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/QStatusBar \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/qstatusbar.h \
-		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtWidgets/QWidget \
 		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtGui/QPainter \
 		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtGui/qpainter.h \
 		D:/QT_app/qt_app/6.7.1/mingw_64/include/QtGui/qtextoption.h
