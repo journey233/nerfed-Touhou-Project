@@ -277,16 +277,26 @@ void PlayWindow::pause(){
     if(gameStop == -1) {
         timer->stop();
         enemy_generate->stop();
+        for(auto enemy:enemies)
+        {
+            enemy->move_timer->stop();
+        }
         for(auto senemy:shootenemies)
         {
+            senemy->move_timer->stop();
             senemy->timer->stop();
         }
     }
     else{
         timer->start();
         enemy_generate->start();
+        for(auto enemy:enemies)
+        {
+            enemy->move_timer->start();
+        }
         for(auto senemy:shootenemies)
         {
+            senemy->move_timer->start();
             senemy->timer->start();
         }
     }
