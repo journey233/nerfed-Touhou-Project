@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
             //监听返回信号
             connect(playWindow,&PlayWindow::Back,this,[=](){
                 //重新显示开始界面
-                playWindow->close();
+                delete playWindow;
                 this->show();
             });
             //进入游戏界面

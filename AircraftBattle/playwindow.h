@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include <QTime>
 #include <QGraphicsScene>
+#include <QLabel>
 #include <QGraphicsPixmapItem>
+#include <mypushbutton.h>
 #include <QKeyEvent>
 #include <QWheelEvent>
 #include "myplane.h"
@@ -33,7 +35,8 @@ public:
     void backButton();
 
     void createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y);
-
+    void gameover(bool win);
+    void pause();
 
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
@@ -49,10 +52,12 @@ public:
     QPixmap backgroundPixmap;
     int offset = 0;
 
+    QWidget *gameoverWidget;
+    QLabel *Text;
+    MyPushButton * backBtn;
 
     QGraphicsPixmapItem *barItem;
     QPixmap barPixmap;
-
 
     Myplane *myplane = nullptr;
     int selfattacktimer = 0;
@@ -67,6 +72,8 @@ public:
     int enemy_phase=1;
     int enemy_clock=0;
     QTimer *enemy_generate;
+
+    int gameStop = 1;
 
     void a_wave_of_enemies(int n);
 

@@ -15,6 +15,7 @@ public:
     void move(double dx, double dy);
     int attack(int type, double dxx, double dyy);
     void be_attacked();
+    const int& HP(){return _life;}
     QGraphicsPixmapItem *hitPoint;//自机命中点
 
     QStack<QGraphicsPixmapItem*> hp;

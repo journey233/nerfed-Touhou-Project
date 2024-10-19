@@ -3,7 +3,6 @@
 #include <QApplication>
 #include <QScreen>
 #include <QGraphicsView>
-#include <mypushbutton.h>
 #include <stdlib.h>
 PlayWindow::PlayWindow(QMainWindow *parent)
     : QMainWindow(parent){
@@ -64,7 +63,15 @@ void PlayWindow::initScene(){
     // 返回按钮
     backButton();
 
-    createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
+    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
+    myplane->setZValue(1);
+    for(auto h : myplane->hp){
+        scene->addItem(h);
+    }
+    scene->addItem(myplane);
+    scene->addItem(myplane->hitPoint);
+
+    //createEnemy(shootenemy3,QPixmap(":/res/enemy_1.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -160,7 +167,6 @@ void PlayWindow::initScene(){
             if(enemy->collidesWithItem(myplane->hitPoint))
             {
                 myplane->be_attacked();
-                qDebug()<<myplane->life();
             }
             for(auto b:myplane->bullet_list)
             {
@@ -230,16 +236,12 @@ void PlayWindow::initScene(){
                 ++it;
             }
         }
+
+        if(myplane->HP()<=0){
+            timer->disconnect();
+            gameover(false);
+        }
     });
-
-
-    myplane = new Myplane(QPixmap(":/res/hitpoint.png"),QPixmap(":/res/myplane0.png"),5,8,SELF,QPointF(300,600),QSize(80,80));
-    myplane->setZValue(1);
-    for(auto h : myplane->hp){
-        scene->addItem(h);
-    }
-    scene->addItem(myplane);
-    scene->addItem(myplane->hitPoint);
 
     srand(QTime(0,0,0).secsTo(QTime::currentTime()));
     enemy_generate=new QTimer(this);
@@ -268,10 +270,29 @@ void PlayWindow::initScene(){
 }
 
 
+void PlayWindow::pause(){
+    if(gameStop == -1) {
+        timer->stop();
+        enemy_generate->stop();
+        for(auto senemy:shootenemies)
+        {
+            senemy->timer->stop();
+        }
+    }
+    else{
+        timer->start();
+        enemy_generate->start();
+        for(auto senemy:shootenemies)
+        {
+            senemy->timer->start();
+        }
+    }
+}
+
 void PlayWindow::backButton()
 {
     //返回按钮
-    MyPushButton * backBtn = new MyPushButton(":/res/back.png",QPoint(60,60));
+    backBtn = new MyPushButton(":/res/back.png",QPoint(60,60));
     backBtn->setParent(this);
     backBtn->move(this->width() - backBtn->width() - 5, 780);
     //点击返回
@@ -288,6 +309,41 @@ void PlayWindow::backButton()
     });
 }
 
+void PlayWindow::gameover(bool win){
+
+    gameoverWidget = new QWidget(this);
+    gameoverWidget->setStyleSheet("background-color: rgba(0, 0, 0, 0.6);");
+    gameoverWidget->setFixedSize(680, height());
+    gameoverWidget->move(0,0);
+    gameoverWidget->show();
+
+    if(win == false){
+        Text = new QLabel("YOU ARE DEAD",this);
+        Text->setFixedSize(480, Text->height());
+    }
+    else{
+        Text = new QLabel("YOU WON",this);
+        Text->setFixedSize(280, Text->height());
+    }
+    Text->move((680 - Text->width())/2,300);
+    Text->setStyleSheet(
+        "QLabel {"
+        "color: white;"
+        "font-size: 40px;"
+        "font-family: Bahnschrift SemiBold;"
+        "}"
+        );
+    Text->setAlignment(Qt::AlignCenter);
+    Text->show();
+
+    QTimer* timer = new QTimer(this);
+    timer->setInterval(5000); // 设置为 3 秒
+    connect(timer, &QTimer::timeout, [=]() {
+        backBtn->click();
+    });
+    timer->start();
+
+}
 void PlayWindow::keyPressEvent(QKeyEvent *event)
 {
     //gameStart = true;
@@ -301,6 +357,13 @@ void PlayWindow::keyPressEvent(QKeyEvent *event)
         moving[2] = true;
     } else if (event->key() == Qt::Key_P) {
         myplane->low_speed = true;
+    }
+    if (event->key() == Qt::Key_Escape) {
+        backBtn->click();
+    }
+    if (event->key() == Qt::Key_M){
+        gameStop*=-1;
+        pause();
     }
 }
 
