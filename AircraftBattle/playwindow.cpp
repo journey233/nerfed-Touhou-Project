@@ -71,7 +71,7 @@ void PlayWindow::initScene(){
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
 
-    // createEnemy(shootenemy3,QPixmap(":/res/enemy_2.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy2,QPixmap(":/res/boss_1.png"),5,1,QPointF(300,200),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -222,6 +222,15 @@ void PlayWindow::initScene(){
         {
             if(!(*it)->is_alive())
             {
+                if((*it)->attack_at_death)
+                {
+                    for (int i = 0; i < 12; ++i) {
+                        Bullet *b = new Bullet(EMYBULLET_ATDEATH,sin(qDegreesToRadians(30*i)),cos(qDegreesToRadians(30*i)));
+                        b->setPos((*it)->x() + (*it)->pix.width() / 2 - b->size[0] / 2,(*it)->y() + (*it)->pix.height() / 2 - b->size[1] / 2);
+                        bullet_supporter->bullet_list.append(b);
+                        scene->addItem(bullet_supporter->bullet_list[bullet_supporter->bullet_list.size() - 1]);
+                    }
+                }
                 for(auto b:(*it)->bullet_list)
                 {
                     auto tmp = new Bullet(*b);
@@ -453,10 +462,24 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         });
         shootenemies.append(new_enemy);
         scene->addItem(new_enemy);
-
     }
     if(type==shootenemy2){
-
+        ShootEnemy *new_enemy = new ShootEnemy(p,l,s,pos,scale,x,y);
+        new_enemy->attack_at_death = true;
+        connect(new_enemy->move_timer,&QTimer::timeout,this,[=](){
+            new_enemy->move(new_enemy->dir[0],new_enemy->dir[1]);
+        });
+        connect(new_enemy->timer, &QTimer::timeout,this,[=](){
+            if(new_enemy->y()>-40){
+                int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
+                int s = new_enemy->bullet_list.size()-1;
+                for (int i = 0; i < num; ++i) {
+                    scene->addItem(new_enemy->bullet_list[s-i]);
+                }
+            }
+        });
+        shootenemies.append(new_enemy);
+        scene->addItem(new_enemy);
     }
     //添加精英怪
     if(type==shootenemy3){

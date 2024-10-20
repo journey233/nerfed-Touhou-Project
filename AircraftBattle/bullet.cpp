@@ -32,6 +32,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         }
     case EMYBULLET_SECOND:{
             camp = ENEMY;
+            bullet_speed = 5;
             QPixmap p(":/res/enemy_bullet_2.png");
             p = p.scaled(QSize(30,30));
             size[0]=30;
@@ -51,7 +52,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
                 this->setRotation(-(atan(dx/dy)*(180.0/M_PI)));
             }
             bullet_speed = 0;
-            a = 0.3;//加速度
+            a = 0.25;//加速度
             break;
         }
     case BOSSBULLET_FIRST:{
@@ -73,6 +74,16 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             size[1] = 30;
             this->setPixmap(p);
             bullet_speed = 20;
+            break;
+        }
+    case EMYBULLET_ATDEATH:{
+            camp = ENEMY;
+            QPixmap p(":/res/death_bullet.png");
+            p = p.scaled(QSize(30,30));
+            size[0]=30;
+            size[1]=30;
+            bullet_speed = 5;
+            this->setPixmap(p);
             break;
         }
     }

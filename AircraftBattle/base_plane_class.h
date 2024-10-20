@@ -44,8 +44,8 @@ protected:
     // 自机可能还需要添加是否处于无敌状态的变量
     bool _camp; // 机体的阵营 自机->SELF，敌机->ENEMY
     bool _state; // 是否活着
-    QPixmap pix; // 贴图
 public:
+    QPixmap pix; // 贴图
     base_plane_class(const QPixmap &p, int l, int s, bool c, QPointF pos, QSize scale, QGraphicsPixmapItem *parent = nullptr)
         :_life(l), _speed(s), _camp(c), _state(true)
     {

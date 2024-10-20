@@ -138,11 +138,13 @@ debug/qrc_res.cpp: ../../res.qrc \
 		../../res/shootenemy_1.png \
 		../../res/icon.jpg \
 		../../res/enemy_bullet_2.png \
+		../../res/lost_hp.png \
 		../../res/boss_bullet0.png \
 		../../res/bar.png \
 		../../res/enemy_bullet0.png \
 		../../res/selfbullet.png \
 		../../res/icon2.png \
+		../../res/death_bullet.png \
 		../../res/hp.png \
 		../../res/myplane0.png \
 		../../res/background.jpg \
@@ -356,9 +358,18 @@ debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
+		../../mypushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QKeyEvent \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QWheelEvent \
 		../../myplane.h \
@@ -569,9 +580,18 @@ debug/moc_playwindow.cpp: ../../playwindow.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
+		../../mypushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QKeyEvent \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QWheelEvent \
 		../../myplane.h \
@@ -1094,9 +1114,18 @@ debug/main.o: ../../main.cpp ../../mainwindow.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
+		../../mypushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QKeyEvent \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QWheelEvent \
 		../../myplane.h \
@@ -1308,9 +1337,18 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
+		../../mypushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QKeyEvent \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QWheelEvent \
 		../../myplane.h \
@@ -1332,10 +1370,6 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QStatusBar \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qstatusbar.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
-		../../mypushbutton.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QPainter \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h
@@ -1882,9 +1916,18 @@ debug/playwindow.o: ../../playwindow.cpp D:/Qt/6.8.0/mingw_64/include/QtCore/Qde
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
+		../../mypushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QKeyEvent \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QWheelEvent \
 		../../myplane.h \
@@ -1904,12 +1947,7 @@ debug/playwindow.o: ../../playwindow.cpp D:/Qt/6.8.0/mingw_64/include/QtCore/Qde
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qscrollarea.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
-		../../mypushbutton.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractscrollarea.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\playwindow.o ..\..\playwindow.cpp
 
 debug/qrc_res.o: debug/qrc_res.cpp 
