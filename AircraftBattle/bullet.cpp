@@ -262,4 +262,5 @@ void Bullet::move(const int screen_x,const int screen_y){
             state = 0;//出界，删去子弹
         }
     }
+    }
 };
