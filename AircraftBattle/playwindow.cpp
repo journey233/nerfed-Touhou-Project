@@ -71,6 +71,7 @@ void PlayWindow::initScene(){
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
 
+    bosstime=false;
     createEnemy(shootenemy2,QPixmap(":/res/boss_1.png"),5,1,QPointF(300,200),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
@@ -144,7 +145,7 @@ void PlayWindow::initScene(){
 
         //敌人阶段时间记录
         enemy_clock++;
-        if(enemy_clock%(Fps * 60) == 0){
+        if(enemy_clock%(Fps * 10) == 0){
             qDebug()<<"enemy level up!";
             upgrade=true;
             enemy_phase++;
@@ -152,7 +153,9 @@ void PlayWindow::initScene(){
             if(enemy_phase>=3){
                 enemy_phase=3;
                 //产生一个boss
+                if(!bosstime){
                 a_wave_of_enemies(8);
+                }
             }
         }
 
@@ -241,6 +244,7 @@ void PlayWindow::initScene(){
             if(!(*it)->is_alive())
             {
                 boom((*it)->pos(),QSize(100,100));
+                if((*it)->ifboss)bosstime=false;
                 if((*it)->attack_at_death)
                 {
                     for (int i = 0; i < 12; ++i) {
@@ -309,6 +313,10 @@ void PlayWindow::initScene(){
             qDebug()<<"enemy_3 of "<<n<<"and Boss";
             break;
         }//第三及之后的产怪
+        }
+        if(bosstime){
+            n=9;
+            qDebug()<<"why not boss time ?";
         }
         a_wave_of_enemies(n);
     });
@@ -570,6 +578,24 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         shootenemies.append(new_enemy);
         scene->addItem(new_enemy);
     }
+    if(type==boss1){
+        ShootEnemy *new_enemy = new ShootEnemy(p,l,s,pos,scale,x,y);
+        connect(new_enemy->move_timer,&QTimer::timeout,this,[=](){
+            new_enemy->move(new_enemy->dir[0],new_enemy->dir[1]);
+            if(new_enemy->y()>=0&&new_enemy->dir[0]==0){
+                new_enemy->dir[0]=1;
+                new_enemy->dir[1]=0;
+            }
+            if(new_enemy->x()>=screenWid-400||new_enemy->x()<=0){
+                new_enemy->dir[0]*=-1;
+            }
+        });
+        new_enemy->ifboss=true;
+        bosstime=true;
+        qDebug()<<"boss time is true";
+        shootenemies.append(new_enemy);
+        scene->addItem(new_enemy);
+    }
 }
 
 void PlayWindow::a_wave_of_enemies(int n){
@@ -650,9 +676,13 @@ void PlayWindow::a_wave_of_enemies(int n){
         break;
     };
     case 8:{
+        createEnemy(boss1,QPixmap(":/res/boss_1.png"),life_boss1,Senemy_speed,QPointF(140,-300),QSize(400,300),0,1);
         //产生boss
         break;
     };
+    case 9:{
+        break;
+    }
     default:break;
     }
 }

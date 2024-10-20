@@ -24,7 +24,7 @@ public:
     QTimer *timer;
 
     ShootEnemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y, QGraphicsPixmapItem *parent = nullptr);
-
+    bool ifboss=false;
     int attack(int type,double dx, double dy);
 signals:
 };
