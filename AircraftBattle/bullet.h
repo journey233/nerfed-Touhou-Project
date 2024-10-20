@@ -29,6 +29,7 @@ public:
     bool camp;//子弹的阵营，敌0自1
     int size[2];
     double a = 0;//子弹加速度
+    int bounce_times =1;
     void move(const int screen_x,const int screen_y);
 
 signals:

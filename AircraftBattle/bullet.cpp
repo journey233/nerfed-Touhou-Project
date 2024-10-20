@@ -171,7 +171,11 @@ void Bullet::move(const int screen_x,const int screen_y){
             nowY = this->pos().y() + dir[1]*bullet_speed;
             this->setPos(nowX,nowY);
         }
-        if(nowX<-size[0]||nowX>screen_x||nowY<-size[1]||nowY>screen_y){
+        if(bounce_times&&(nowX<0||nowX>screen_x-size[0])&&type==EMYBULLET_SECOND){
+                bounce_times--;
+                dir[0]*=-1;
+        }
+        if(nowY<-size[1]||nowY>screen_y||nowX<-size[0]||nowX>screen_x){
             state = 0;//出界，删去子弹
         }
     }
