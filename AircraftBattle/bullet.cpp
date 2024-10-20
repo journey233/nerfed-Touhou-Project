@@ -78,7 +78,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         }
     case BOSSBULLET_SECOND:{
         camp = ENEMY;
-        QPixmap p(":/res/enemy_bullet0.png");
+        QPixmap p(":/res/centerbullet.png");
         p = p.scaled(QSize(50,50));
         size[0] = 50;
         size[1] = 50;
@@ -94,7 +94,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
     }
     case BOSSBULLET_SECOND_ORB:{
         camp = ENEMY;
-        QPixmap p(":/res/enemy_bullet_2.png");
+        QPixmap p(":/res/orbbullet.png");
         p = p.scaled(QSize(30,30));
         size[0]=30;
         size[1]=30;
@@ -189,7 +189,7 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
     }
     case BOSSBULLET_SECOND:{
         camp = ENEMY;
-        QPixmap p(":/res/enemy_bullet0.png");
+        QPixmap p(":/res/centerbullet.png");
         p = p.scaled(QSize(50,50));
         size[0] = 50;
         size[1] = 50;
@@ -203,7 +203,7 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
     }
     case BOSSBULLET_SECOND_ORB:{
         camp = ENEMY;
-        QPixmap p(":/res/enemy_bullet_2.png");
+        QPixmap p(":/res/orbbullet.png");
         p = p.scaled(QSize(30,30));
         size[0]=30;
         size[1]=30;
@@ -253,14 +253,12 @@ void Bullet::move(const int screen_x,const int screen_y){
                 state = 0;//出界，删去子弹
             }
         }
-        else if(nowX<-size[0]||nowX>screen_x||nowY<-size[1]||nowY>screen_y){
-        if(bounce_times&&(nowX<0||nowX>screen_x-size[0])&&type==EMYBULLET_SECOND){
-                bounce_times--;
-                dir[0]*=-1;
+        if(type==EMYBULLET_SECOND && bounce_times && (nowX<0||nowX>screen_x-size[0])){
+            bounce_times--;
+            dir[0]*=-1;
         }
         if(nowY<-size[1]||nowY>screen_y||nowX<-size[0]||nowX>screen_x){
             state = 0;//出界，删去子弹
         }
-    }
     }
 };

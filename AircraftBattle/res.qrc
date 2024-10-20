@@ -36,5 +36,7 @@
         <file>res/blast/blasts9.png</file>
         <file>res/blast/blasts10.png</file>
         <file>res/blast/blasts11.png</file>
+        <file>res/centerbullet.png</file>
+        <file>res/orbbullet.png</file>
     </qresource>
 </RCC>

@@ -35,7 +35,12 @@ int ShootEnemy::attack(int type,double dx,double dy){
     }
     return 6;
     } else if(type==EMYBULLET_SECOND){
-
+        for (int i = 0; i < 4; ++i) {
+            Bullet *b = new Bullet(type,-sin(qDegreesToRadians(30-20*i)),cos(qDegreesToRadians(30-20*i)));
+            b->setPos(this->x() + this->pix.width() / 2 - b->size[0] / 2,this->y() + this->pix.height());
+            bullet_list.append(b);
+        }
+    return 4;
     } else if(type==EMYBULLET_THIRD){
         Bullet *b = new Bullet(type,dx,dy);
         b->setPos(this->x() + this->pix.width() / 2 - b->size[0] / 2,this->y() + this->pix.height());

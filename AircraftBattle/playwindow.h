@@ -13,6 +13,7 @@
 #include "enemy.h"
 
 #define life_senemy_1 8
+#define life_senemy_2 8
 #define life_enemy_1 12
 #define life_enemy_3 50
 #define life_boss1 500
