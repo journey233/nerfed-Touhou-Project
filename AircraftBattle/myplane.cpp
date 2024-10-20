@@ -11,7 +11,7 @@ Myplane::Myplane(const QPixmap &hitpoint,const QPixmap &p, int l, int s, bool c,
     hitPoint->setShapeMode(QGraphicsPixmapItem::MaskShape);
 
     bloodPixmap = QPixmap(":/res/hp.png").scaled(40, 40, Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    lostbloodPixmap = QPixmap("").scaled(40, 40, Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    lostbloodPixmap = QPixmap(":/res/lost_hp.png").scaled(40, 40, Qt::KeepAspectRatio,Qt::SmoothTransformation);
     for(int i=0;i<l;i++){
         QGraphicsPixmapItem* blood = new QGraphicsPixmapItem();
         blood->setPixmap(bloodPixmap);

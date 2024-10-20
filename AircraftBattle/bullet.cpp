@@ -32,6 +32,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         }
     case EMYBULLET_SECOND:{
             camp = ENEMY;
+            bullet_speed = 5;
             QPixmap p(":/res/enemy_bullet_2.png");
             p = p.scaled(QSize(30,30));
             size[0]=30;
@@ -51,7 +52,7 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
                 this->setRotation(-(atan(dx/dy)*(180.0/M_PI)));
             }
             bullet_speed = 0;
-            a = 0.3;//加速度
+            a = 0.25;//加速度
             break;
         }
     case BOSSBULLET_FIRST:{
@@ -100,6 +101,16 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
         this->setPixmap(p);
         break;
     }
+    case EMYBULLET_ATDEATH:{
+            camp = ENEMY;
+            QPixmap p(":/res/death_bullet.png");
+            p = p.scaled(QSize(30,30));
+            size[0]=30;
+            size[1]=30;
+            bullet_speed = 5;
+            this->setPixmap(p);
+            break;
+        }
     }
     this->setZValue(2);
     this->setShapeMode(QGraphicsPixmapItem::MaskShape);
@@ -243,6 +254,11 @@ void Bullet::move(const int screen_x,const int screen_y){
             }
         }
         else if(nowX<-size[0]||nowX>screen_x||nowY<-size[1]||nowY>screen_y){
+        if(bounce_times&&(nowX<0||nowX>screen_x-size[0])&&type==EMYBULLET_SECOND){
+                bounce_times--;
+                dir[0]*=-1;
+        }
+        if(nowY<-size[1]||nowY>screen_y||nowX<-size[0]||nowX>screen_x){
             state = 0;//出界，删去子弹
         }
     }

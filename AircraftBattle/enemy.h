@@ -20,8 +20,7 @@ class ShootEnemy : public Enemy
 {
 protected:
 public:
-    double dir[2];
-    QTimer *move_timer;
+    bool attack_at_death = false;
     QTimer *timer;
 
     ShootEnemy(const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y, QGraphicsPixmapItem *parent = nullptr);

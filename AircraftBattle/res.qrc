@@ -23,5 +23,6 @@
         <file>res/enemy_bullet_2.png</file>
         <file>res/hp.png</file>
         <file>res/lost_hp.png</file>
+        <file>res/death_bullet.png</file>
     </qresource>
 </RCC>
