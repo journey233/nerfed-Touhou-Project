@@ -24,5 +24,17 @@
         <file>res/hp.png</file>
         <file>res/lost_hp.png</file>
         <file>res/death_bullet.png</file>
+        <file>res/boom.png</file>
+        <file>res/blast/blasts1.png</file>
+        <file>res/blast/blasts2.png</file>
+        <file>res/blast/blasts3.png</file>
+        <file>res/blast/blasts4.png</file>
+        <file>res/blast/blasts5.png</file>
+        <file>res/blast/blasts6.png</file>
+        <file>res/blast/blasts7.png</file>
+        <file>res/blast/blasts8.png</file>
+        <file>res/blast/blasts9.png</file>
+        <file>res/blast/blasts10.png</file>
+        <file>res/blast/blasts11.png</file>
     </qresource>
 </RCC>

@@ -35,6 +35,20 @@ enum EnemyType{
     boss2
 };
 
+QString BoomImgPath[11] = {
+    ":/res/blast/blasts1.png",
+    ":/res/blast/blasts2.png",
+    ":/res/blast/blasts3.png",
+    ":/res/blast/blasts4.png",
+    ":/res/blast/blasts5.png",
+    ":/res/blast/blasts6.png",
+    ":/res/blast/blasts7.png",
+    ":/res/blast/blasts8.png",
+    ":/res/blast/blasts9.png",
+    ":/res/blast/blasts10.png",
+    ":/res/blast/blasts11.png",
+};
+
 class PlayWindow :public QMainWindow
 {
     Q_OBJECT
@@ -48,6 +62,7 @@ public:
     void createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPointF pos, QSize scale, double x, double y);
     void gameover(bool win);
     void pause();
+    void boom(QPointF pos,QSize size);
 
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;

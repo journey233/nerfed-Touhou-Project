@@ -226,6 +226,7 @@ void PlayWindow::initScene(){
         {
             if(!(*it)->is_alive())
             {
+                boom((*it)->pos(),QSize(100,100));
                 delete (*it)->move_timer;
                 delete (*it);
                 it = enemies.erase(it);
@@ -239,6 +240,7 @@ void PlayWindow::initScene(){
         {
             if(!(*it)->is_alive())
             {
+                boom((*it)->pos(),QSize(100,100));
                 if((*it)->attack_at_death)
                 {
                     for (int i = 0; i < 12; ++i) {
@@ -312,6 +314,28 @@ void PlayWindow::initScene(){
     });
 }
 
+void PlayWindow::boom(QPointF pos,QSize size){ // 爆炸特效的位置与大小
+    QGraphicsPixmapItem* boomItem = new QGraphicsPixmapItem();
+    boomItem->setPixmap(QPixmap(BoomImgPath[0]).scaled(size));
+    boomItem->setPos(pos);
+    scene->addItem(boomItem);
+
+    QTimer* t = new QTimer(this);
+    t->start(1000/Fps);
+
+    int* count = new int(0);
+
+    connect(t, &QTimer::timeout, this, [=](){
+        (*count)++;
+        boomItem->setPixmap(QPixmap(BoomImgPath[*count]).scaled(size));
+        if(*count==11){
+            delete boomItem;
+            delete count;
+            delete t;
+        }
+    });
+
+}
 
 void PlayWindow::pause(){
     if(gameStop == -1) {
