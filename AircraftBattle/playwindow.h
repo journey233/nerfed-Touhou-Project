@@ -15,6 +15,7 @@
 #define life_senemy_1 8
 #define life_enemy_1 12
 #define life_enemy_3 50
+#define life_boss1 500
 #define enemy_speed_norm 3
 #define senemy_speed_norm 2
 #define Senemy_speed 1
@@ -86,7 +87,7 @@ public:
     QTimer *enemy_move;
 
     int gameStop = 1;
-
+    bool bosstime=0;
     void a_wave_of_enemies(int n);
 
 signals:
