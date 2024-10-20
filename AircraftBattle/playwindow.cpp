@@ -243,8 +243,9 @@ void PlayWindow::initScene(){
         {
             if(!(*it)->is_alive())
             {
-                boom((*it)->pos(),QSize(100,100));
-                if((*it)->ifboss)bosstime=false;
+                if((*it)->ifboss) bosstime=false;
+                if((*it)->ifboss) boom((*it)->pos(),QSize(400,300));
+                else boom((*it)->pos(),QSize(100,100));
                 if((*it)->attack_at_death)
                 {
                     for (int i = 0; i < 12; ++i) {
@@ -329,14 +330,15 @@ void PlayWindow::boom(QPointF pos,QSize size){ // 爆炸特效的位置与大小
     scene->addItem(boomItem);
 
     QTimer* t = new QTimer(this);
-    t->start(1000/Fps);
+    t->start(2000/Fps);
 
     int* count = new int(0);
+    *count = 0;
 
     connect(t, &QTimer::timeout, this, [=](){
         (*count)++;
         boomItem->setPixmap(QPixmap(BoomImgPath[*count]).scaled(size));
-        if(*count==11){
+        if(*count==10){
             delete boomItem;
             delete count;
             delete t;

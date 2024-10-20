@@ -36,20 +36,6 @@ enum EnemyType{
     boss2
 };
 
-QString BoomImgPath[11] = {
-    ":/res/blast/blasts1.png",
-    ":/res/blast/blasts2.png",
-    ":/res/blast/blasts3.png",
-    ":/res/blast/blasts4.png",
-    ":/res/blast/blasts5.png",
-    ":/res/blast/blasts6.png",
-    ":/res/blast/blasts7.png",
-    ":/res/blast/blasts8.png",
-    ":/res/blast/blasts9.png",
-    ":/res/blast/blasts10.png",
-    ":/res/blast/blasts11.png",
-};
-
 class PlayWindow :public QMainWindow
 {
     Q_OBJECT
@@ -85,6 +71,20 @@ public:
 
     QGraphicsPixmapItem *barItem;
     QPixmap barPixmap;
+
+    QString BoomImgPath[11] = {
+        ":/res/blast/blasts1.png",
+        ":/res/blast/blasts2.png",
+        ":/res/blast/blasts3.png",
+        ":/res/blast/blasts4.png",
+        ":/res/blast/blasts5.png",
+        ":/res/blast/blasts6.png",
+        ":/res/blast/blasts7.png",
+        ":/res/blast/blasts8.png",
+        ":/res/blast/blasts9.png",
+        ":/res/blast/blasts10.png",
+        ":/res/blast/blasts11.png",
+    };
 
     Myplane *myplane = nullptr;
     int selfattacktimer = 0;
