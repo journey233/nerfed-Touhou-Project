@@ -71,7 +71,7 @@ void PlayWindow::initScene(){
     scene->addItem(myplane);
     scene->addItem(myplane->hitPoint);
 
-    // createEnemy(shootenemy3,QPixmap(":/res/enemy_2.png"),1000,1,QPointF(300,0),QSize(80,80),0,1);
+    createEnemy(shootenemy3,QPixmap(":/res/enemy_2.png"),10,1,QPointF(300,0),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -164,6 +164,13 @@ void PlayWindow::initScene(){
                 myplane->be_attacked();
                 b->state = false;
             }
+            for(auto bu:b->orb){
+                if(bu && myplane->hitPoint->collidesWithItem(bu))
+                {
+                    myplane->be_attacked();
+                    bu->state = false;
+                }
+            }
         }
         for(auto enemy:enemies)
         {
@@ -182,10 +189,12 @@ void PlayWindow::initScene(){
         }
         for(auto senemy:shootenemies)
         {
+            //自机撞敌机
             if(senemy->collidesWithItem(myplane->hitPoint))
             {
                 myplane->be_attacked();
             }
+            //自机子弹撞敌机
             for(auto b:myplane->bullet_list)
             {
                 if(senemy->collidesWithItem(b))
@@ -194,12 +203,20 @@ void PlayWindow::initScene(){
                     b->state = false;
                 }
             }
+            //敌机子弹撞自机
             for(auto bu:senemy->bullet_list)
             {
                 if(myplane->hitPoint->collidesWithItem(bu))
                 {
                     myplane->be_attacked();
                     bu->state = false;
+                }
+                for(auto b:bu->orb){
+                    if(b && myplane->hitPoint->collidesWithItem(b))
+                    {
+                        myplane->be_attacked();
+                        b->state = false;
+                    }
                 }
             }
         }
@@ -227,7 +244,15 @@ void PlayWindow::initScene(){
                     auto tmp = new Bullet(*b);
                     tmp->setPos(b->pos());
                     bullet_supporter->bullet_list.append(tmp);
-                    scene->addItem(bullet_supporter->bullet_list[bullet_supporter->bullet_list.size() - 1]);
+                    auto m = bullet_supporter->bullet_list[bullet_supporter->bullet_list.size() - 1];
+                    scene->addItem(m);
+                    if(m->type == BOSSBULLET_SECOND){
+                        for(int i=0;i<3;i++){
+                            if(m->orb[i]){
+                                scene->addItem(m->orb[i]);
+                            }
+                        }
+                    }
                     b->state = false;
                 }
                 (*it)->bullet_dead();
@@ -466,7 +491,7 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         });
         connect(new_enemy->timer,&QTimer::timeout,this,[=](){
             if(new_enemy->y()>-40){
-            int tp = rand()%4;
+                int tp = rand()%4;
             if(tp==0||tp==1){
                 int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
                 int s = new_enemy->bullet_list.size()-1;
@@ -474,7 +499,14 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
                     scene->addItem(new_enemy->bullet_list[s-i]);
                 }
             } else if(tp==2){
-
+                int num = new_enemy->attack(BOSSBULLET_SECOND,0,1);
+                int s = new_enemy->bullet_list.size()-1;
+                for (int i = 0; i < num; ++i) {
+                    scene->addItem(new_enemy->bullet_list[s-i]);
+                    for(int j = 0;j<3;j++){
+                        scene->addItem(new_enemy->bullet_list[s-i]->orb[j]);
+                    }
+                }
             } else if(tp==3){
                 double dx,dy;
                 dx = myplane->hitPoint->x()-new_enemy->x()-35;

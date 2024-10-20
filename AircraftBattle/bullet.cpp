@@ -75,6 +75,31 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
             bullet_speed = 20;
             break;
         }
+    case BOSSBULLET_SECOND:{
+        camp = ENEMY;
+        QPixmap p(":/res/enemy_bullet0.png");
+        p = p.scaled(QSize(50,50));
+        size[0] = 50;
+        size[1] = 50;
+        bullet_speed = 2;
+        a = 0.05;
+        this->setPixmap(p);
+        for(int i=0;i<3;i++){
+            Bullet* b = new Bullet(BOSSBULLET_SECOND_ORB,0,0);
+            orb[i] = b;
+        }
+        angle = 0;
+        break;
+    }
+    case BOSSBULLET_SECOND_ORB:{
+        camp = ENEMY;
+        QPixmap p(":/res/enemy_bullet_2.png");
+        p = p.scaled(QSize(30,30));
+        size[0]=30;
+        size[1]=30;
+        this->setPixmap(p);
+        break;
+    }
     }
     this->setZValue(2);
     this->setShapeMode(QGraphicsPixmapItem::MaskShape);
@@ -88,6 +113,7 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
     this->state = 1;
     this->dir[0] = bul.dir[0];
     this->dir[1] = bul.dir[1];
+    this->a = bul.a;
 
     switch(type){
         //TODO 为子弹类型填写相应的图像，设置图像大小,填写size函数,同时更改速度
@@ -150,6 +176,29 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
         this->setPixmap(p);
         break;
     }
+    case BOSSBULLET_SECOND:{
+        camp = ENEMY;
+        QPixmap p(":/res/enemy_bullet0.png");
+        p = p.scaled(QSize(50,50));
+        size[0] = 50;
+        size[1] = 50;
+        this->setPixmap(p);
+        bullet_speed = bul.bullet_speed;
+        for(int i=0;i<3;i++){
+            orb[i] = new Bullet(*bul.orb[i]);
+        }
+        angle = bul.angle;
+        break;
+    }
+    case BOSSBULLET_SECOND_ORB:{
+        camp = ENEMY;
+        QPixmap p(":/res/enemy_bullet_2.png");
+        p = p.scaled(QSize(30,30));
+        size[0]=30;
+        size[1]=30;
+        this->setPixmap(p);
+        break;
+    }
     }
     this->setZValue(2);
     this->setShapeMode(QGraphicsPixmapItem::MaskShape);
@@ -163,7 +212,24 @@ void Bullet::move(const int screen_x,const int screen_y){
             nowX = this->pos().x();
             nowY = this->pos().y()-bullet_speed;
             this->setPos(nowX,nowY);
-        } else {
+        }
+        else if(type==BOSSBULLET_SECOND){
+            nowX = this->pos().x();
+            nowY = this->pos().y()+bullet_speed;
+            this->setPos(nowX,nowY);
+            double centerX = this->pos().x()+this->size[0]/2;
+            double centerY = this->pos().y()+this->size[1]/2;
+            angle += a;
+            a += 0.01;
+            for(int i = 0;i<3;i++){
+                if(orb[i]){
+                    nowX = centerX + (30*cos(qDegreesToRadians(angle))+70)*sin(qDegreesToRadians(angle+120*i)) - orb[i]->size[0]/2;
+                    nowY = centerY + (30*cos(qDegreesToRadians(angle))+70)*cos(qDegreesToRadians(angle+120*i)) - orb[i]->size[1]/2;
+                    orb[i]->setPos(nowX,nowY);
+                }
+            }
+        }
+        else {
             if(type==EMYBULLET_THIRD||type==BOSSBULLET_FIRST){
                 bullet_speed+=a;
             }
@@ -171,7 +237,12 @@ void Bullet::move(const int screen_x,const int screen_y){
             nowY = this->pos().y() + dir[1]*bullet_speed;
             this->setPos(nowX,nowY);
         }
-        if(nowX<-size[0]||nowX>screen_x||nowY<-size[1]||nowY>screen_y){
+        if(this->type == BOSSBULLET_SECOND){
+            if(nowX<-size[0]-100||nowX>screen_x+100||nowY<-size[1]-100||nowY>screen_y+100){
+                state = 0;//出界，删去子弹
+            }
+        }
+        else if(nowX<-size[0]||nowX>screen_x||nowY<-size[1]||nowY>screen_y){
             state = 0;//出界，删去子弹
         }
     }

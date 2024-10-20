@@ -10,12 +10,15 @@
 #define EMYBULLET_SECOND 3
 #define EMYBULLET_THIRD 4
 #define BOSSBULLET_FIRST 5
+#define BOSSBULLET_SECOND 6
+#define BOSSBULLET_SECOND_ORB 7
 //TODO
 
 
 
 
 #include <QGraphicsPixmapItem>
+#include <QList>
 
 class Bullet : public QGraphicsPixmapItem
 {
@@ -30,6 +33,8 @@ public:
     int size[2];
     double a = 0;//子弹加速度
     void move(const int screen_x,const int screen_y);
+    Bullet* orb[3] = {nullptr};
+    double angle;
 
 signals:
 };

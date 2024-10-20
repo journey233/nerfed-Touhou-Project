@@ -86,9 +86,22 @@ public:
     void bullet_dead(){ // 子弹删除
         for(auto it = bullet_list.begin();it != bullet_list.end();){
             if(!(*it)->state){
+                for(int i=0;i<3;i++){
+                    if((*it)->orb[i]){
+                        delete (*it)->orb[i];
+                    }
+                }
                 delete (*it);
                 it = bullet_list.erase(it);
             } else {
+                for(int i=0;i<3;i++){
+                    if((*it)->orb[i]){
+                        if(!(*it)->orb[i]->state){
+                            delete (*it)->orb[i];
+                            (*it)->orb[i] = nullptr;
+                        }
+                    }
+                }
                 it++;
             }
         }

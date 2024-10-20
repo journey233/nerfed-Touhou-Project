@@ -41,5 +41,10 @@ int ShootEnemy::attack(int type,double dx,double dy){
         b->setPos(this->x() + this->pix.width() / 2 - b->size[0] / 2,this->y() + this->pix.height());
         bullet_list.append(b);
         return 1;
+    } else if(type == BOSSBULLET_SECOND){
+        Bullet *b = new Bullet(type,dx,dy);
+        b->setPos(this->x() + this->pix.width() / 2 - b->size[0] / 2,this->y() + this->pix.height());
+        bullet_list.append(b);
+        return 1;
     }
 }
