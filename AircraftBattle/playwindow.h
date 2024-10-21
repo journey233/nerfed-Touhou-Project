@@ -63,7 +63,7 @@ public:
     void wheelEvent(QWheelEvent *event) override;
 
     QTimer *timer;
-    QSoundEffect *se_damage, *se_dead, *en_dead, *bgm, *bossbgm;
+    QSoundEffect *se_dead, *en_dead, *bgm, *bossbgm;
     int scene_width = 740;//窗口宽度
     int scene_height = 860;//窗口高度
 

@@ -11,9 +11,6 @@ PlayWindow::PlayWindow(QMainWindow *parent)
 
 void PlayWindow::initScene(){
 
-    se_damage = new QSoundEffect();
-    se_damage->setSource(QUrl("qrc:/sound/se_damage.wav"));
-    se_damage->setVolume(0.4f);
     se_dead = new QSoundEffect();
     se_dead->setSource(QUrl("qrc:/sound/se_dead.wav"));
     se_dead->setVolume(0.25f);
@@ -216,7 +213,6 @@ void PlayWindow::initScene(){
             {
                 if(enemy->collidesWithItem(b))
                 {
-                    se_damage->play();
                     enemy->be_attacked();
                     b->state = false;
                 }
@@ -238,7 +234,6 @@ void PlayWindow::initScene(){
             {
                 if(senemy->collidesWithItem(b))
                 {
-                    se_damage->play();
                     senemy->be_attacked();
                     b->state = false;
                     if(senemy->ifboss){
@@ -439,7 +434,6 @@ PlayWindow::~PlayWindow(){
     }
     //qDebug()<<"delete bs bullet";
 
-    delete se_damage;
     delete se_dead;
     delete en_dead;
     delete bgm;
