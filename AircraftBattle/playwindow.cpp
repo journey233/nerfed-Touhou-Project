@@ -154,7 +154,7 @@ void PlayWindow::initScene(){
                 enemy_phase=4;
                 //产生一个boss
                 if(!bosstime){
-                a_wave_of_enemies(8);
+                    createBoss();
                 }
             }
         }
@@ -204,6 +204,13 @@ void PlayWindow::initScene(){
                 {
                     senemy->be_attacked();
                     b->state = false;
+                    if(senemy->ifboss){
+                        if(bossblood) bossblood->setRect(80,28,520*senemy->life()/life_boss1,16);
+                        if(senemy->life() <= 0){
+                            delete barbg;
+                            delete bossblood;
+                        }
+                    }
                 }
             }
             //敌机子弹撞自机
@@ -244,6 +251,7 @@ void PlayWindow::initScene(){
             if(!(*it)->is_alive())
             {
                 if((*it)->ifboss) bosstime=false;
+                if((*it)->ifboss) gameover(true);
                 if((*it)->ifboss) boom((*it)->pos(),QSize(400,300));
                 else boom((*it)->pos(),QSize(100,100));
                 if((*it)->attack_at_death)
@@ -379,6 +387,31 @@ void PlayWindow::pause(){
     }
 }
 
+void PlayWindow::createBoss(){
+    //warning
+    QWidget* warnWidget = new QWidget(this);
+    warnWidget->setStyleSheet("background-color: rgba(255, 0, 0, 0.6);");
+    warnWidget->setFixedSize(680, height());
+    warnWidget->move(0,0);
+    warnWidget->hide();
+
+    QTimer* t = new QTimer();
+    t->start(500);
+    int* count = new int(0);
+    connect(t,&QTimer::timeout,[=](){
+        (*count)++;
+        if(*count%2==0) warnWidget->hide();
+        else warnWidget->show();
+        if((*count)==10){
+            delete count;
+            delete warnWidget;
+            delete t;
+            a_wave_of_enemies(8);
+        }
+    });
+
+}
+
 void PlayWindow::backButton()
 {
     //返回按钮
@@ -436,6 +469,7 @@ void PlayWindow::gameover(bool win){
     timer->start();
 
 }
+
 void PlayWindow::keyPressEvent(QKeyEvent *event)
 {
     //gameStart = true;
@@ -577,6 +611,9 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
     }
     if(type==boss1){
         ShootEnemy *new_enemy = new ShootEnemy(p,l,s,pos,scale,x,y);
+
+        bossHp();
+
         connect(new_enemy->move_timer,&QTimer::timeout,this,[=](){
             new_enemy->move(new_enemy->dir[0],new_enemy->dir[1]);
             if(new_enemy->y()>=0&&new_enemy->dir[0]==0){
@@ -693,6 +730,18 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         shootenemies.append(new_enemy);
         scene->addItem(new_enemy);
     }
+}
+
+void PlayWindow::bossHp(){
+    barbg = new QGraphicsPixmapItem();
+    barbg->setPixmap(QPixmap(":/res/bosshpbar.png").scaled(QSize(600,33)));
+    barbg->setPos(40,20);
+    barbg->setZValue(3);
+    scene->addItem(barbg);
+    bossblood = new QGraphicsRectItem(80,28,520,16);
+    bossblood->setBrush(QBrush("#DC143C"));
+    bossblood->setZValue(3);
+    scene->addItem(bossblood);
 }
 
 void PlayWindow::a_wave_of_enemies(int n){

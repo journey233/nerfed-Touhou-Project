@@ -38,5 +38,6 @@
         <file>res/blast/blasts11.png</file>
         <file>res/centerbullet.png</file>
         <file>res/orbbullet.png</file>
+        <file>res/bosshpbar.png</file>
     </qresource>
 </RCC>

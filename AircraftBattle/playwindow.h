@@ -51,6 +51,8 @@ public:
     void gameover(bool win);
     void pause();
     void boom(QPointF pos,QSize size);
+    void bossHp();
+    void createBoss();
 
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
@@ -101,6 +103,9 @@ public:
     int enemy_clock=0;
     QTimer *enemy_generate;
     QTimer *enemy_move;
+
+    QGraphicsRectItem *bossblood;
+    QGraphicsPixmapItem *barbg;
 
     int gameStop = 1;
     bool bosstime=0;
