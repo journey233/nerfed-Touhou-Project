@@ -13,22 +13,22 @@ void PlayWindow::initScene(){
 
     se_damage = new QSoundEffect();
     se_damage->setSource(QUrl("qrc:/sound/se_damage.wav"));
-    se_damage->setVolume(0.2f);
+    se_damage->setVolume(0.4f);
     se_dead = new QSoundEffect();
     se_dead->setSource(QUrl("qrc:/sound/se_dead.wav"));
-    se_dead->setVolume(0.3f);
+    se_dead->setVolume(0.25f);
     en_dead = new QSoundEffect();
     en_dead->setSource(QUrl("qrc:/sound/se_opshow.wav"));
-    en_dead->setVolume(0.2f);
+    en_dead->setVolume(0.4f);
     bgm = new QSoundEffect();
     bgm->setSource(QUrl("qrc:/sound/KOKUSHIMUSOU.wav"));
     bgm->setLoopCount(QSoundEffect::Infinite);
-    bgm->setVolume(0.2f);
+    bgm->setVolume(0.1f);
     bgm->play();
     bossbgm = new QSoundEffect();
     bossbgm->setSource(QUrl("qrc:/sound/Camellia_MEGALOVANIA_Remix.wav"));
     bgm->setLoopCount(QSoundEffect::Infinite);
-    bossbgm->setVolume(0.2f);
+    bossbgm->setVolume(0.1f);
 
     //游戏界面大小
     this->setFixedSize(scene_width,scene_height);
