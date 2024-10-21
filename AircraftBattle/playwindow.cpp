@@ -72,7 +72,7 @@ void PlayWindow::initScene(){
     scene->addItem(myplane->hitPoint);
 
     bosstime=false;
-    createEnemy(shootenemy2,QPixmap(":/res/boss_1.png"),5,1,QPointF(300,200),QSize(80,80),0,1);
+    // createEnemy(shootenemy2,QPixmap(":/res/boss_1.png"),5,1,QPointF(300,200),QSize(80,80),0,1);
     bullet_supporter = new Enemy(QPixmap(":/res/enemy_1.png"), 1, 1, QPointF(0, 900), QSize(1, 1), 0, 0);
     scene->addItem(bullet_supporter);
 
@@ -145,7 +145,7 @@ void PlayWindow::initScene(){
 
         //敌人阶段时间记录
         enemy_clock++;
-        if(enemy_clock%(Fps * 60) == 0){
+        if(enemy_clock%(Fps * phase_time) == 0){
             qDebug()<<"enemy level up!";
             upgrade=true;
             enemy_phase++;
@@ -293,7 +293,7 @@ void PlayWindow::initScene(){
     enemy_generate=new QTimer(this);
     enemy_generate->start(3000);
     connect(enemy_generate,&QTimer::timeout,this,[=](){
-        enemy_generate->start(5000);
+        enemy_generate->start(generate_gap);
         qDebug()<<"enemy generate!";
         int n=rand()%300;
         if(n>=0&&n<100)n=0;
@@ -453,7 +453,7 @@ void PlayWindow::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Escape) {
         backBtn->click();
     }
-    if (event->key() == Qt::Key_M){
+    if (event->key() == Qt::Key_M) {
         gameStop*=-1;
         pause();
     }

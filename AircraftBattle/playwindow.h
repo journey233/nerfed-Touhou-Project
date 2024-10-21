@@ -26,6 +26,8 @@
 #define enemy_move_angle_y0 0.98
 #define enemy_move_angle_y1 0.86
 #define enemy_move_angle_y2 0.96
+#define phase_time 60
+#define generate_gap 7000
 
 enum EnemyType{
     enemy1,
