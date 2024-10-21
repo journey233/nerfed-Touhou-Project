@@ -11,6 +11,25 @@ PlayWindow::PlayWindow(QMainWindow *parent)
 
 void PlayWindow::initScene(){
 
+    se_damage = new QSoundEffect();
+    se_damage->setSource(QUrl("qrc:/sound/se_damage.wav"));
+    se_damage->setVolume(0.2f);
+    se_dead = new QSoundEffect();
+    se_dead->setSource(QUrl("qrc:/sound/se_dead.wav"));
+    se_dead->setVolume(0.3f);
+    en_dead = new QSoundEffect();
+    en_dead->setSource(QUrl("qrc:/sound/se_opshow.wav"));
+    en_dead->setVolume(0.2f);
+    bgm = new QSoundEffect();
+    bgm->setSource(QUrl("qrc:/sound/KOKUSHIMUSOU.wav"));
+    bgm->setLoopCount(QSoundEffect::Infinite);
+    bgm->setVolume(0.2f);
+    bgm->play();
+    bossbgm = new QSoundEffect();
+    bossbgm->setSource(QUrl("qrc:/sound/Camellia_MEGALOVANIA_Remix.wav"));
+    bgm->setLoopCount(QSoundEffect::Infinite);
+    bossbgm->setVolume(0.2f);
+
     //游戏界面大小
     this->setFixedSize(scene_width,scene_height);
 
@@ -154,7 +173,9 @@ void PlayWindow::initScene(){
                 enemy_phase=4;
                 //产生一个boss
                 if(!bosstime){
-                a_wave_of_enemies(8);
+                    a_wave_of_enemies(8);
+                    bgm->stop();
+                    bossbgm->play();
                 }
             }
         }
@@ -164,12 +185,20 @@ void PlayWindow::initScene(){
         {
             if(myplane->hitPoint->collidesWithItem(b))
             {
+                if(myplane->nondead == false)
+                {
+                    se_dead->play();
+                }
                 myplane->be_attacked();
                 b->state = false;
             }
             for(auto bu:b->orb){
                 if(bu && myplane->hitPoint->collidesWithItem(bu))
                 {
+                    if(myplane->nondead == false)
+                    {
+                        se_dead->play();
+                    }
                     myplane->be_attacked();
                     bu->state = false;
                 }
@@ -179,12 +208,17 @@ void PlayWindow::initScene(){
         {
             if(enemy->collidesWithItem(myplane->hitPoint))
             {
+                if(myplane->nondead == false)
+                {
+                    se_dead->play();
+                }
                 myplane->be_attacked();
             }
             for(auto b:myplane->bullet_list)
             {
                 if(enemy->collidesWithItem(b))
                 {
+                    se_damage->play();
                     enemy->be_attacked();
                     b->state = false;
                 }
@@ -195,6 +229,10 @@ void PlayWindow::initScene(){
             //自机撞敌机
             if(senemy->collidesWithItem(myplane->hitPoint))
             {
+                if(myplane->nondead == false)
+                {
+                    se_dead->play();
+                }
                 myplane->be_attacked();
             }
             //自机子弹撞敌机
@@ -202,6 +240,7 @@ void PlayWindow::initScene(){
             {
                 if(senemy->collidesWithItem(b))
                 {
+                    se_damage->play();
                     senemy->be_attacked();
                     b->state = false;
                 }
@@ -211,12 +250,20 @@ void PlayWindow::initScene(){
             {
                 if(myplane->hitPoint->collidesWithItem(bu))
                 {
+                    if(myplane->nondead == false)
+                    {
+                        se_dead->play();
+                    }
                     myplane->be_attacked();
                     bu->state = false;
                 }
                 for(auto b:bu->orb){
                     if(b && myplane->hitPoint->collidesWithItem(b))
                     {
+                        if(myplane->nondead == false)
+                        {
+                            se_dead->play();
+                        }
                         myplane->be_attacked();
                         b->state = false;
                     }
@@ -325,6 +372,90 @@ void PlayWindow::initScene(){
         a_wave_of_enemies(n);
     });
 }
+PlayWindow::~PlayWindow(){
+    //自机删除
+    for(auto it = myplane->bullet_list.begin();it != myplane->bullet_list.end();){
+        for(int i=0;i<3;i++){
+            if((*it)->orb[i]){
+                delete (*it)->orb[i];
+                (*it)->orb[i] = nullptr;
+            }
+        }
+        delete (*it);
+        it = myplane->bullet_list.erase(it);
+    }
+    for(auto it = myplane->hp.begin();it!=myplane->hp.end();){
+        delete (*it);
+        it = myplane->hp.erase(it);
+    }
+    for(auto it = myplane->lost_hp.begin();it!=myplane->lost_hp.end();){
+        delete (*it);
+        it = myplane->lost_hp.erase(it);
+    }
+    delete myplane->hitPoint;
+    delete myplane;
+    //敌机删除
+    for(auto it = enemies.begin(); it != enemies.end();)
+    {
+        delete (*it)->move_timer;
+        delete (*it);
+        it = enemies.erase(it);
+    }
+
+    for(auto it = shootenemies.begin(); it != shootenemies.end();)
+    {
+        for(auto bit = (*it)->bullet_list.begin();bit != (*it)->bullet_list.end();){
+            for(int i=0;i<3;i++){
+                if((*bit)->orb[i]){
+                    delete (*bit)->orb[i];
+                    (*bit)->orb[i] = nullptr;
+                }
+            }
+            delete (*bit);
+            bit = (*it)->bullet_list.erase(bit);
+        }
+        delete (*it)->timer;
+        delete (*it)->move_timer;
+        delete (*it);
+        it = shootenemies.erase(it);
+    }
+    //qDebug()<<"delete senemy";
+    //子弹继父删除
+    for(auto it = bullet_supporter->bullet_list.begin();it!=bullet_supporter->bullet_list.end();){
+        for(int i=0;i<3;i++){
+            if((*it)->orb[i]){
+                delete (*it)->orb[i];
+                (*it)->orb[i] = nullptr;
+            }
+        }
+        delete (*it);
+        it = bullet_supporter->bullet_list.erase(it);
+    }
+    //qDebug()<<"delete bs bullet";
+
+    delete se_damage;
+    delete se_dead;
+    delete en_dead;
+    delete bgm;
+    delete bossbgm;
+
+    delete bullet_supporter->move_timer;
+
+    //qDebug()<<"delete bs timer";
+
+    delete bullet_supporter;
+
+    //qDebug()<<"delete bs";
+
+    delete timer;
+
+    delete enemy_generate;
+
+    //qDebug()<<"delete complete";
+    delete barItem;
+    delete scene;
+
+}
 
 void PlayWindow::boom(QPointF pos,QSize size){ // 爆炸特效的位置与大小
     QGraphicsPixmapItem* boomItem = new QGraphicsPixmapItem();
@@ -347,7 +478,7 @@ void PlayWindow::boom(QPointF pos,QSize size){ // 爆炸特效的位置与大小
             delete t;
         }
     });
-
+    en_dead->play();
 }
 
 void PlayWindow::pause(){
@@ -410,10 +541,19 @@ void PlayWindow::gameover(bool win){
     gameoverWidget->show();
 
     if(win == false){
+        if(bgm->isPlaying())
+        {
+            bgm->stop();
+        }
+        if(bossbgm->isPlaying())
+        {
+            bossbgm->stop();
+        }
         Text = new QLabel("YOU ARE DEAD",this);
         Text->setFixedSize(480, Text->height());
     }
     else{
+        bossbgm->stop();
         Text = new QLabel("YOU WON",this);
         Text->setFixedSize(280, Text->height());
     }

@@ -9,6 +9,7 @@
 #include <mypushbutton.h>
 #include <QKeyEvent>
 #include <QWheelEvent>
+#include <QSoundEffect>
 #include "myplane.h"
 #include "enemy.h"
 
@@ -44,6 +45,7 @@ class PlayWindow :public QMainWindow
     Q_OBJECT
 public:
     PlayWindow(QMainWindow *parent = nullptr);
+    ~PlayWindow();
 
     void initScene();
     void updateBackground();
@@ -59,6 +61,7 @@ public:
     void wheelEvent(QWheelEvent *event) override;
 
     QTimer *timer;
+    QSoundEffect *se_damage, *se_dead, *en_dead, *bgm, *bossbgm;
     int scene_width = 740;//窗口宽度
     int scene_height = 860;//窗口高度
 
