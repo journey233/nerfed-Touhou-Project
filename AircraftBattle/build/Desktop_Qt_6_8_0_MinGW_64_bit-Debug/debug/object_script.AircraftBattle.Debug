@@ -1,3 +1,5 @@
+debug/qrc_res.o
+debug/qrc_sound.o
 debug/bullet.o
 debug/enemy.o
 debug/main.o
@@ -5,6 +7,5 @@ debug/mainwindow.o
 debug/myplane.o
 debug/mypushbutton.o
 debug/playwindow.o
-debug/qrc_res.o
 debug/moc_mainwindow.o
 debug/moc_playwindow.o

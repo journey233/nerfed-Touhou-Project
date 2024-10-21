@@ -9,6 +9,7 @@
 #include <mypushbutton.h>
 #include <QKeyEvent>
 #include <QWheelEvent>
+#include <QSoundEffect>
 #include "myplane.h"
 #include "enemy.h"
 
@@ -26,6 +27,8 @@
 #define enemy_move_angle_y0 0.98
 #define enemy_move_angle_y1 0.86
 #define enemy_move_angle_y2 0.96
+#define phase_time 60
+#define generate_gap 7000
 
 enum EnemyType{
     enemy1,
@@ -42,6 +45,7 @@ class PlayWindow :public QMainWindow
     Q_OBJECT
 public:
     PlayWindow(QMainWindow *parent = nullptr);
+    ~PlayWindow();
 
     void initScene();
     void updateBackground();
@@ -59,6 +63,7 @@ public:
     void wheelEvent(QWheelEvent *event) override;
 
     QTimer *timer;
+    QSoundEffect *se_damage, *se_dead, *en_dead, *bgm, *bossbgm;
     int scene_width = 740;//窗口宽度
     int scene_height = 860;//窗口高度
 

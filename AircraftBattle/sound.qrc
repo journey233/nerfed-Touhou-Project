@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>sound/se_damage.wav</file>
+        <file>sound/se_dead.wav</file>
+        <file>sound/se_opshow.wav</file>
+        <file>sound/KOKUSHIMUSOU.wav</file>
+        <file>sound/Camellia_MEGALOVANIA_Remix.wav</file>
+    </qresource>
+</RCC>

@@ -1,4 +1,6 @@
 QT       += core gui
+QT       += multimedia
+CONFIG   += resources_big
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,4 +37,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    res.qrc
+    res.qrc \
+    sound.qrc
