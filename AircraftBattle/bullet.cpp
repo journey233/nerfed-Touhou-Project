@@ -58,11 +58,15 @@ Bullet::Bullet(const int ty,const double dx,const double dy,QGraphicsPixmapItem 
     case BOSSBULLET_FIRST:{
             camp = ENEMY;
             QPixmap p(":/res/boss_bullet0.png");
-            p = p.scaled(QSize(20,80));
-            size[0] = 20;
-            size[1] = 80;
+            p = p.scaled(QSize(40,160));
+            size[0] = 40;
+            size[1] = 160;
             this->setPixmap(p);
-            bullet_speed = 10;
+            if(dy){
+                // this->setTransformOriginPoint(10,75);
+                this->setRotation(-(atan(dx/dy)*(180.0/M_PI)));
+            }
+            bullet_speed = 1;
             a = 0.5;
             break;
         }
@@ -171,10 +175,13 @@ Bullet::Bullet(const Bullet &bul, QGraphicsPixmapItem *parent)
     case BOSSBULLET_FIRST:{
         camp = ENEMY;
         QPixmap p(":/res/boss_bullet0.png");
-        p = p.scaled(QSize(20,80));
-        size[0] = 20;
-        size[1] = 80;
+        p = p.scaled(QSize(40,160));
+        size[0] = 40;
+        size[1] = 160;
         this->setPixmap(p);
+        if(dir[1]){
+            this->setRotation(-atan(dir[0]/dir[1])*(180.0/M_PI));
+        }
         a = 2;
         break;
     }
@@ -225,8 +232,8 @@ void Bullet::move(const int screen_x,const int screen_y){
             this->setPos(nowX,nowY);
         }
         else if(type==BOSSBULLET_SECOND){
-            nowX = this->pos().x();
-            nowY = this->pos().y()+bullet_speed;
+            nowX = this->pos().x() + dir[0]*bullet_speed;
+            nowY = this->pos().y() + dir[1]*bullet_speed;
             this->setPos(nowX,nowY);
             double centerX = this->pos().x()+this->size[0]/2;
             double centerY = this->pos().y()+this->size[1]/2;

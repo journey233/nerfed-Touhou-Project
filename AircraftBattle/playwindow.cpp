@@ -150,8 +150,8 @@ void PlayWindow::initScene(){
             upgrade=true;
             enemy_phase++;
             enemy_clock=0;
-            if(enemy_phase>=3){
-                enemy_phase=3;
+            if(enemy_phase==4){
+                enemy_phase=4;
                 //产生一个boss
                 if(!bosstime){
                 a_wave_of_enemies(8);
@@ -314,6 +314,9 @@ void PlayWindow::initScene(){
             qDebug()<<"enemy_3 of "<<n<<"and Boss";
             break;
         }//第三及之后的产怪
+        case 4:{
+            break;
+        }
         }
         if(bosstime){
             n=9;
@@ -548,23 +551,15 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
         });
         connect(new_enemy->timer,&QTimer::timeout,this,[=](){
             if(new_enemy->y()>-40){
-                int tp = rand()%4;
+                int tp = rand()%3;
             if(tp==0||tp==1){
                 int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
                 int s = new_enemy->bullet_list.size()-1;
                 for (int i = 0; i < num; ++i) {
                     scene->addItem(new_enemy->bullet_list[s-i]);
                 }
-            } else if(tp==2){
-                int num = new_enemy->attack(BOSSBULLET_SECOND,0,1);
-                int s = new_enemy->bullet_list.size()-1;
-                for (int i = 0; i < num; ++i) {
-                    scene->addItem(new_enemy->bullet_list[s-i]);
-                    for(int j = 0;j<3;j++){
-                        scene->addItem(new_enemy->bullet_list[s-i]->orb[j]);
-                    }
-                }
-            } else if(tp==3){
+            }
+            else if(tp==2){
                 double dx,dy;
                 dx = myplane->hitPoint->x()-new_enemy->x()-35;
                 dy = myplane->hitPoint->y()-new_enemy->y()-72;
@@ -592,6 +587,106 @@ void PlayWindow::createEnemy(EnemyType type,const QPixmap &p, int l, int s, QPoi
                 new_enemy->dir[0]*=-1;
             }
         });
+        connect(new_enemy->timer,&QTimer::timeout,this,[=](){
+            if(new_enemy->y()>-40){
+                int tp = rand()%4;
+                if(tp==0||tp==1){
+                    int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
+                    int s = new_enemy->bullet_list.size()-1;
+                    for (int i = 0; i < num; ++i) {
+                        scene->addItem(new_enemy->bullet_list[s-i]);
+                    }
+                    QTimer::singleShot(600,this,[=](){
+                        if(bosstime){
+                        int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
+                        int s = new_enemy->bullet_list.size()-1;
+                        for (int i = 0; i < num; ++i) {
+                            scene->addItem(new_enemy->bullet_list[s-i]);
+                        }
+                        QTimer::singleShot(600,this,[=](){
+                            if(bosstime){
+                            int num = new_enemy->attack(EMYBULLET_FIRST,0,1);
+                            int s = new_enemy->bullet_list.size()-1;
+                            for (int i = 0; i < num; ++i) {
+                                scene->addItem(new_enemy->bullet_list[s-i]);
+                            }
+                        }
+                        });
+                    }
+                    });
+                } else if(tp==2){
+                    int num = new_enemy->attack(BOSSBULLET_SECOND,0,1);
+                    int s = new_enemy->bullet_list.size()-1;
+                    for (int i = 0; i < num; ++i) {
+                        scene->addItem(new_enemy->bullet_list[s-i]);
+                        for(int j = 0;j<3;j++){
+                            scene->addItem(new_enemy->bullet_list[s-i]->orb[j]);
+                        }
+                    }
+                    QTimer::singleShot(400,this,[=](){
+                        if(bosstime){
+                        int num = new_enemy->attack(BOSSBULLET_SECOND,0.5,0.86);
+                        int s = new_enemy->bullet_list.size()-1;
+                        for (int i = 0; i < num; ++i) {
+                            scene->addItem(new_enemy->bullet_list[s-i]);
+                            for(int j = 0;j<3;j++){
+                                scene->addItem(new_enemy->bullet_list[s-i]->orb[j]);
+                            }
+                        }
+                        QTimer::singleShot(400,this,[=](){
+                            if(bosstime){
+                            int num = new_enemy->attack(BOSSBULLET_SECOND,-0.5,0.86);
+                            int s = new_enemy->bullet_list.size()-1;
+                            for (int i = 0; i < num; ++i) {
+                                scene->addItem(new_enemy->bullet_list[s-i]);
+                                for(int j = 0;j<3;j++){
+                                    scene->addItem(new_enemy->bullet_list[s-i]->orb[j]);
+                                }
+                            }
+                        }
+                        });
+                    }
+                    });
+                } else if(tp==3){
+                    double dx,dy;
+                    dx = myplane->hitPoint->x()-new_enemy->x()-200;
+                    dy = myplane->hitPoint->y()-new_enemy->y()-300;
+                    double len = sqrt(dx*dx+dy*dy);
+                    int num = new_enemy->attack(BOSSBULLET_FIRST,dx/len,dy/len);
+                    int s = new_enemy->bullet_list.size()-1;
+                    for (int i = 0; i < num; ++i) {
+                        scene->addItem(new_enemy->bullet_list[s-i]);
+                    }
+                    QTimer::singleShot(500,this,[=](){
+                        if(bosstime){
+                        double dx,dy;
+                        dx = myplane->hitPoint->x()-new_enemy->x()-200;
+                        dy = myplane->hitPoint->y()-new_enemy->y()-300;
+                        double len = sqrt(dx*dx+dy*dy);
+                        int num = new_enemy->attack(BOSSBULLET_FIRST,dx/len,dy/len);
+                        int s = new_enemy->bullet_list.size()-1;
+                        for (int i = 0; i < num; ++i) {
+                            scene->addItem(new_enemy->bullet_list[s-i]);
+                        }
+                        QTimer::singleShot(500,this,[=](){
+                            if(bosstime){
+                            double dx,dy;
+                            dx = myplane->hitPoint->x()-new_enemy->x()-200;
+                            dy = myplane->hitPoint->y()-new_enemy->y()-300;
+                            double len = sqrt(dx*dx+dy*dy);
+                            int num = new_enemy->attack(BOSSBULLET_FIRST,dx/len,dy/len);
+                            int s = new_enemy->bullet_list.size()-1;
+                            for (int i = 0; i < num; ++i) {
+                                scene->addItem(new_enemy->bullet_list[s-i]);
+                            }
+                        }
+                        });
+                    }
+                    });
+                }
+            }
+        });
+
         new_enemy->ifboss=true;
         bosstime=true;
         qDebug()<<"boss time is true";
@@ -648,12 +743,12 @@ void PlayWindow::a_wave_of_enemies(int n){
     };
     case 5:{
         createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,enemy_speed_norm,QPointF(0,-360),QSize(80,80),enemy_move_angle_x1,enemy_move_angle_y1);
-        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_senemy_1,senemy_speed_norm,QPointF(100,0),QSize(80,80),0,1);
+        createEnemy(shootenemy3,QPixmap(":/res/shootenemy_2.png"),life_enemy_3,Senemy_speed,QPointF(100,0),QSize(80,80),0,1);
         createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,enemy_speed_norm,QPointF(100,-90),QSize(80,80),enemy_move_angle_x1,enemy_move_angle_y1);
         createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,enemy_speed_norm,QPointF(200,-180),QSize(80,80),enemy_move_angle_x2,enemy_move_angle_y1);
-        createEnemy(shootenemy3,QPixmap(":/res/shootenemy_2.png"),life_enemy_3,Senemy_speed,QPointF(300,-180),QSize(80,80),0,1);
+        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_senemy_1,senemy_speed_norm,QPointF(300,-180),QSize(80,80),0,1);
         createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_3,enemy_speed_norm,QPointF(400,-90),QSize(80,80),-enemy_move_angle_x2,enemy_move_angle_y1);
-        createEnemy(shootenemy1,QPixmap(":/res/shootenemy_1.png"),life_senemy_1,senemy_speed_norm,QPointF(500,-450),QSize(80,80),0,1);
+        createEnemy(shootenemy3,QPixmap(":/res/shootenemy_2.png"),life_enemy_3,Senemy_speed,QPointF(500,-450),QSize(80,80),0,1);
         createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,enemy_speed_norm,QPointF(500,-180),QSize(80,80),-enemy_move_angle_x1,enemy_move_angle_y1);
         createEnemy(enemy1,QPixmap(":/res/enemy_1.png"),life_enemy_1,enemy_speed_norm,QPointF(600,-360),QSize(80,80),-enemy_move_angle_x1,enemy_move_angle_y1);
         break;
