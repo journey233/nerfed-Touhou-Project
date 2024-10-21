@@ -528,7 +528,7 @@ void PlayWindow::pause(){
 void PlayWindow::createBoss(){
     //warning
     QWidget* warnWidget = new QWidget(this);
-    warnWidget->setStyleSheet("background-color: rgba(255, 0, 0, 0.6);");
+    warnWidget->setStyleSheet("background-color: rgba(255, 0, 0, 0.2);");
     warnWidget->setFixedSize(680, height());
     warnWidget->move(0,0);
     warnWidget->hide();
