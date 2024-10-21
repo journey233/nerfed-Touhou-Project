@@ -276,7 +276,10 @@ void PlayWindow::initScene(){
         {
             if(!(*it)->is_alive())
             {
-                boom((*it)->pos(),QSize(100,100));
+                if((*it)->life() <= 0)
+                {
+                    boom((*it)->pos(),QSize(100,100));
+                }
                 delete (*it)->move_timer;
                 delete (*it);
                 it = enemies.erase(it);
@@ -292,8 +295,20 @@ void PlayWindow::initScene(){
             {
                 if((*it)->ifboss) bosstime=false;
                 if((*it)->ifboss) gameover(true);
-                if((*it)->ifboss) boom((*it)->pos(),QSize(400,300));
-                else boom((*it)->pos(),QSize(100,100));
+                if((*it)->ifboss)
+                {
+                    if((*it)->life() <= 0)
+                    {
+                        boom((*it)->pos(),QSize(400,300));
+                    }
+                }
+                else
+                {
+                    if((*it)->life() <= 0)
+                    {
+                        boom((*it)->pos(),QSize(100,100));
+                    }
+                }
                 if((*it)->attack_at_death)
                 {
                     for (int i = 0; i < 12; ++i) {

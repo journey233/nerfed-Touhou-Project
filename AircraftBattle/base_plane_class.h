@@ -110,7 +110,6 @@ public:
     {
         if(this->_life == 1){
             _state = false;
-            return;
         }
         --(this->_life);
     }
